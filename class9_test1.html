@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test 1 - Computer Science</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 30px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .welcome {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+      color: #2d3436;
+    }
+    .question {
+      font-size: 1.2em;
+      margin: 20px 0;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .options label:hover {
+      background-color: #ecf0f1;
+    }
+    .button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 1em;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #2980b9;
+    }
+    .score {
+      font-size: 1.4em;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Computer Science Test 1</h1>
+    <div class="welcome" id="welcomeBox"></div>
+    <div id="quizBox">
+      <div id="questionBox"></div>
+      <form id="optionsForm" class="options"></form>
+      <button class="button" onclick="submitAnswer()">Submit</button>
+    </div>
+    <div id="scoreBox" class="score" style="display:none;"></div>
+  </div>
+
+  <script>
+    const studentName = localStorage.getItem("studentName");
+    if (!studentName) {
+      window.location.href = "index.html";
+    } else {
+      document.getElementById("welcomeBox").innerText = `Welcome, ${studentName}!`;
+    }
+
+    let questions = [];
+    let currentIndex = 0;
+    let correct = 0;
+    let incorrect = 0;
+
+    fetch("questions.json")
+      .then(res => res.json())
+      .then(data => {
+        questions = data;
+        showQuestion();
+      })
+      .catch(err => {
+        document.getElementById("quizBox").innerHTML = "❌ Failed to load questions.";
+      });
+
+    function showQuestion() {
+      if (currentIndex >= questions.length) {
+        document.getElementById("quizBox").style.display = "none";
+        document.getElementById("scoreBox").style.display = "block";
+        document.getElementById("scoreBox").innerHTML = `
+          <p>✅ Test Completed!</p>
+          <p><strong>Total Questions:</strong> ${questions.length}</p>
+          <p><strong>Correct:</strong> ${correct}</p>
+          <p><strong>Incorrect:</strong> ${incorrect}</p>
+        `;
+        return;
+      }
+
+      const q = questions[currentIndex];
+      document.getElementById("questionBox").innerHTML = `
+        <p class="question"><strong>Q${currentIndex + 1}:</strong> ${q.question}</p>
+      `;
+
+      const optionsForm = document.getElementById("optionsForm");
+      optionsForm.innerHTML = "";
+      q.options.forEach((opt, idx) => {
+        const id = `opt${idx}`;
+        optionsForm.innerHTML += `
+          <label for="${id}">
+            <input type="radio" name="option" value="${opt}" id="${id}"> ${opt}
+          </label>
+        `;
+      });
+    }
+
+    function submitAnswer() {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert("Please select an answer.");
+        return;
+      }
+
+      const answer = selected.value;
+      if (answer === questions[currentIndex].answer) {
+        correct++;
+      } else {
+        incorrect++;
+      }
+      currentIndex++;
+      showQuestion();
+    }
+  </script>
+</body>
+</html>
