@@ -1,147 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Test 1 - Computer Science</title>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Class 9 Test</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f2f2f2;
-      text-align: center;
-      padding: 30px;
+      background: linear-gradient(120deg, #4e54c8, #8f94fb);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
     }
+
     .container {
-      max-width: 700px;
+      max-width: 600px;
       margin: auto;
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 10px;
     }
-    h1 {
-      color: #2c3e50;
+
+    h2 {
+      text-align: center;
     }
-    .welcome {
-      font-size: 1.1em;
-      margin-bottom: 20px;
-      color: #2d3436;
-    }
+
     .question {
-      font-size: 1.2em;
-      margin: 20px 0;
+      margin-top: 20px;
     }
+
     .options label {
       display: block;
       margin: 10px 0;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      transition: background 0.3s;
     }
-    .options label:hover {
-      background-color: #ecf0f1;
-    }
-    .button {
+
+    button {
       margin-top: 20px;
-      padding: 12px 25px;
-      font-size: 1em;
-      background-color: #3498db;
-      color: white;
+      padding: 10px 20px;
+      font-weight: bold;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
+      background-color: #00c9ff;
+      color: #000;
     }
-    .button:hover {
-      background-color: #2980b9;
+
+    button:hover {
+      background-color: #b2fefa;
     }
-    .score {
-      font-size: 1.4em;
-      margin-top: 30px;
+
+    .timer {
+      text-align: right;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Computer Science Test 1</h1>
-    <div class="welcome" id="welcomeBox"></div>
-    <div id="quizBox">
-      <div id="questionBox"></div>
-      <form id="optionsForm" class="options"></form>
-      <button class="button" onclick="submitAnswer()">Submit</button>
-    </div>
-    <div id="scoreBox" class="score" style="display:none;"></div>
+    <h2>Class 9 CS - Test</h2>
+    <p><strong>Welcome:</strong> <span id="studentName"></span> (Roll <span id="studentRoll"></span>)</p>
+    <div class="timer">⏰ Time left: <span id="timer">60</span> sec</div>
+    <div class="question" id="question-box"></div>
+    <div class="options" id="options-box"></div>
+    <button onclick="nextQuestion()">Next</button>
   </div>
 
   <script>
-    const studentName = localStorage.getItem("studentName");
-    if (!studentName) {
-     window.location.href = "class9_test1.html";
-    } else {
-      document.getElementById("welcomeBox").innerText = `Welcome, ${studentName}!`;
-    }
-
     let questions = [];
-    let currentIndex = 0;
-    let correct = 0;
-    let incorrect = 0;
+    let currentQuestion = 0;
+    let responses = [];
+    let timeLeft = 60;
+    let timer;
 
-    fetch("questions.json")
-      .then(res => res.json())
-      .then(data => {
-        questions = data;
-        showQuestion();
-      })
-      .catch(err => {
-        document.getElementById("quizBox").innerHTML = "❌ Failed to load questions.";
-      });
+    // Load student info
+    document.getElementById("studentName").textContent = localStorage.getItem("studentName") || "Student";
+    document.getElementById("studentRoll").textContent = localStorage.getItem("studentRoll") || "-";
 
-    function showQuestion() {
-      if (currentIndex >= questions.length) {
-        document.getElementById("quizBox").style.display = "none";
-        document.getElementById("scoreBox").style.display = "block";
-        document.getElementById("scoreBox").innerHTML = `
-          <p>✅ Test Completed!</p>
-          <p><strong>Total Questions:</strong> ${questions.length}</p>
-          <p><strong>Correct:</strong> ${correct}</p>
-          <p><strong>Incorrect:</strong> ${incorrect}</p>
-        `;
+    async function loadQuestions() {
+      const res = await fetch("questions.json");
+      questions = await res.json();
+      showQuestion(currentQuestion);
+    }
+
+    function showQuestion(index) {
+      if (index >= questions.length) {
+        submitTest();
         return;
       }
 
-      const q = questions[currentIndex];
-      document.getElementById("questionBox").innerHTML = `
-        <p class="question"><strong>Q${currentIndex + 1}:</strong> ${q.question}</p>
-      `;
+      const q = questions[index];
+      document.getElementById("question-box").innerHTML = `<p><strong>Q${index + 1}:</strong> ${q.question}</p>`;
+      const optionsHTML = q.options.map((opt, i) => `
+        <label>
+          <input type="radio" name="option" value="${opt}"> ${opt}
+        </label>
+      `).join("");
+      document.getElementById("options-box").innerHTML = optionsHTML;
 
-      const optionsForm = document.getElementById("optionsForm");
-      optionsForm.innerHTML = "";
-      q.options.forEach((opt, idx) => {
-        const id = `opt${idx}`;
-        optionsForm.innerHTML += `
-          <label for="${id}">
-            <input type="radio" name="option" value="${opt}" id="${id}"> ${opt}
-          </label>
-        `;
-      });
+      startTimer();
     }
 
-    function submitAnswer() {
+    function nextQuestion() {
+      saveAnswer();
+      currentQuestion++;
+      showQuestion(currentQuestion);
+    }
+
+    function saveAnswer() {
       const selected = document.querySelector('input[name="option"]:checked');
-      if (!selected) {
-        alert("Please select an answer.");
-        return;
-      }
-
-      const answer = selected.value;
-      if (answer === questions[currentIndex].answer) {
-        correct++;
-      } else {
-        incorrect++;
-      }
-      currentIndex++;
-      showQuestion();
+      responses.push({
+        question: questions[currentQuestion].question,
+        selected: selected ? selected.value : "Not Answered",
+        correct: questions[currentQuestion].answer
+      });
+      clearInterval(timer);
     }
+
+    function startTimer() {
+      timeLeft = 60;
+      document.getElementById("timer").textContent = timeLeft;
+      clearInterval(timer);
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer").textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          nextQuestion();
+        }
+      }, 1000);
+    }
+
+    function submitTest() {
+      clearInterval(timer);
+      document.body.innerHTML = `
+        <div class="container">
+          <h2>✅ Test Submitted</h2>
+          <p>Thank you, ${localStorage.getItem("studentName") || "Student"}!</p>
+          <p>Your answers have been recorded.</p>
+        </div>
+      `;
+      // Optionally send `responses` to a server or store in localStorage
+      console.log("Responses:", responses);
+    }
+
+    loadQuestions();
   </script>
 </body>
 </html>
