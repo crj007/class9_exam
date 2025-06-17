@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Login - Test 1</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #4e54c8, #8f94fb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #fff;
+    }
+
+    .login-box {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      width: 300px;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    button {
+      width: 95%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #00c9ff;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      color: #000;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #b2fefa;
+    }
+
+    .error {
+      margin-top: 10px;
+      color: #ff4d4d;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Class 10 CS - Test 1</h2>
+    <input type="text" id="username" placeholder="Enter First Name" />
+    <input type="password" id="password" placeholder="Enter Password" />
+    <button onclick="login()">Login</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    async function login() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorDiv = document.getElementById("error");
+
+      try {
+        const response = await fetch("students.json");
+        const students = await response.json();
+
+        const student = students.find(s => s.name.toLowerCase() === username.toLowerCase() && s.password === password);
+
+        if (student) {
+          localStorage.setItem("studentName", student.name);
+          localStorage.setItem("studentRoll", student.roll);
+          window.location.href = "test1.html";
+        } else {
+          errorDiv.textContent = "Invalid name or password!";
+        }
+      } catch (error) {
+        errorDiv.textContent = "Error loading student data.";
+      }
+    }
+  </script>
+</body>
+</html>
