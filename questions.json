@@ -1,0 +1,102 @@
+[
+  {
+    "question": "What is the full form of WWW?",
+    "options": ["World Wide Web", "Web World Wide", "World Web Window", "World Wide Window"],
+    "answer": "World Wide Web"
+  },
+  {
+    "question": "Which protocol is used to access web pages on the internet?",
+    "options": ["FTP", "HTTP", "SMTP", "IP"],
+    "answer": "HTTP"
+  },
+  {
+    "question": "Which of the following is a web browser?",
+    "options": ["Linux", "Chrome", "Apache", "Python"],
+    "answer": "Chrome"
+  },
+  {
+    "question": "What does URL stand for?",
+    "options": ["Universal Resource Locator", "Uniform Resource Locator", "Unified Resource Location", "Unique Resource Locator"],
+    "answer": "Uniform Resource Locator"
+  },
+  {
+    "question": "What is a website's home page?",
+    "options": ["The last page", "The main page", "A contact page", "A page with ads"],
+    "answer": "The main page"
+  },
+  {
+    "question": "Which of the following is not a cryptocurrency?",
+    "options": ["Bitcoin", "Ethereum", "Litecoin", "PayPal"],
+    "answer": "PayPal"
+  },
+  {
+    "question": "What technology is cryptocurrency based on?",
+    "options": ["Blockchain", "Cloud computing", "Internet of Things", "Artificial Intelligence"],
+    "answer": "Blockchain"
+  },
+  {
+    "question": "Who invented Bitcoin?",
+    "options": ["Vitalik Buterin", "Elon Musk", "Satoshi Nakamoto", "Mark Zuckerberg"],
+    "answer": "Satoshi Nakamoto"
+  },
+  {
+    "question": "What is the primary use of cryptocurrency?",
+    "options": ["Gaming", "Decentralized digital transactions", "Messaging", "Cloud storage"],
+    "answer": "Decentralized digital transactions"
+  },
+  {
+    "question": "Which of the following is a feature of blockchain?",
+    "options": ["Centralized control", "Transparent and immutable", "Editable records", "Single point of failure"],
+    "answer": "Transparent and immutable"
+  },
+  {
+    "question": "What does 'phishing' mean in cyber security?",
+    "options": ["Fishing in secure networks", "Sending malicious emails to steal data", "A type of virus", "Scanning a network"],
+    "answer": "Sending malicious emails to steal data"
+  },
+  {
+    "question": "What is a firewall?",
+    "options": ["An antivirus", "A physical wall", "A network security system", "A browser"],
+    "answer": "A network security system"
+  },
+  {
+    "question": "Which of these is an example of malware?",
+    "options": ["Google Chrome", "Microsoft Word", "Trojan Horse", "Ubuntu"],
+    "answer": "Trojan Horse"
+  },
+  {
+    "question": "What is two-factor authentication?",
+    "options": ["Logging in from two devices", "Using two passwords", "Using password plus another method of verification", "Encrypting files twice"],
+    "answer": "Using password plus another method of verification"
+  },
+  {
+    "question": "Which one of these is a strong password?",
+    "options": ["123456", "password", "qwerty", "M@rket#2025"],
+    "answer": "M@rket#2025"
+  },
+  {
+    "question": "What is the purpose of HTTPS?",
+    "options": ["To browse anonymously", "To prevent malware", "To securely transmit data over the internet", "To block pop-ups"],
+    "answer": "To securely transmit data over the internet"
+  },
+  {
+    "question": "What is the function of an IP address?",
+    "options": ["To store data", "To identify a device on a network", "To create viruses", "To translate languages"],
+    "answer": "To identify a device on a network"
+  },
+  {
+    "question": "What is the main danger of public Wi-Fi networks?",
+    "options": ["Slow internet speed", "Higher cost", "Risk of data theft", "Limited access to websites"],
+    "answer": "Risk of data theft"
+  },
+  {
+    "question": "Which of the following is a digital wallet?",
+    "options": ["Dropbox", "Google Pay", "Instagram", "YouTube"],
+    "answer": "Google Pay"
+  },
+  {
+    "question": "Which of the following is a type of cyber attack?",
+    "options": ["Phishing", "Photoshopping", "Streaming", "Browsing"],
+    "answer": "Phishing"
+  }
+]
