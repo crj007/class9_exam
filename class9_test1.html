@@ -14,7 +14,7 @@
     }
 
     .container {
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
       background-color: rgba(0, 0, 0, 0.6);
       padding: 30px;
@@ -54,10 +54,31 @@
       font-weight: bold;
       margin-bottom: 10px;
     }
+
+    .result-table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    .result-table th, .result-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .correct {
+      color: #00ff00;
+    }
+
+    .wrong {
+      color: #ff4d4d;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="main-container">
     <h2>Class 9 CS - Test</h2>
     <p><strong>Welcome:</strong> <span id="studentName"></span> (Roll <span id="studentRoll"></span>)</p>
     <div class="timer">⏰ Time left: <span id="timer">60</span> sec</div>
@@ -73,7 +94,6 @@
     let timeLeft = 60;
     let timer;
 
-    // Load student info
     document.getElementById("studentName").textContent = localStorage.getItem("studentName") || "Student";
     document.getElementById("studentRoll").textContent = localStorage.getItem("studentRoll") || "-";
 
@@ -91,7 +111,7 @@
 
       const q = questions[index];
       document.getElementById("question-box").innerHTML = `<p><strong>Q${index + 1}:</strong> ${q.question}</p>`;
-      const optionsHTML = q.options.map((opt, i) => `
+      const optionsHTML = q.options.map(opt => `
         <label>
           <input type="radio" name="option" value="${opt}"> ${opt}
         </label>
@@ -133,15 +153,43 @@
 
     function submitTest() {
       clearInterval(timer);
-      document.body.innerHTML = `
-        <div class="container">
-          <h2>✅ Test Submitted</h2>
-          <p>Thank you, ${localStorage.getItem("studentName") || "Student"}!</p>
-          <p>Your answers have been recorded.</p>
-        </div>
+
+      let score = 0;
+      let resultHTML = `
+        <h2>✅ Test Submitted</h2>
+        <p>Thank you, ${localStorage.getItem("studentName") || "Student"}!</p>
+        <p>Your answers have been recorded.</p>
+        <h3>📊 Results:</h3>
+        <table class="result-table">
+          <tr>
+            <th>#</th>
+            <th>Question</th>
+            <th>Your Answer</th>
+            <th>Correct Answer</th>
+            <th>Status</th>
+          </tr>
       `;
-      // Optionally send `responses` to a server or store in localStorage
-      console.log("Responses:", responses);
+
+      responses.forEach((res, i) => {
+        const isCorrect = res.selected === res.correct;
+        if (isCorrect) score++;
+        resultHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${res.question}</td>
+            <td>${res.selected}</td>
+            <td>${res.correct}</td>
+            <td class="${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? "✅ Correct" : "❌ Wrong"}</td>
+          </tr>
+        `;
+      });
+
+      resultHTML += `</table><p><strong>Total Score: ${score} / ${responses.length}</strong></p>`;
+
+      document.getElementById("main-container").innerHTML = resultHTML;
+
+      // Optionally send data to server or save to localStorage
+      console.log("Student Responses:", responses);
     }
 
     loadQuestions();
