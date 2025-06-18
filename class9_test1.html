@@ -256,67 +256,61 @@
       document.getElementById("main-container").innerHTML = resultHTML;
     }
 
-    async function downloadResultAsPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
+   async function downloadResultAsPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
-      const name = localStorage.getItem("studentName") || "Student";
-      const roll = localStorage.getItem("studentRoll") || "-";
-      let y = 10;
+  const name = localStorage.getItem("studentName") || "Student";
+  const roll = localStorage.getItem("studentRoll") || "-";
+  let y = 10;
 
-      // Header
-      doc.setFontSize(16);
-      doc.text("Cambridge International School Guwahati", 105, y, { align: "center" }); y += 10;
-      doc.setFontSize(12);
-      doc.text(`Test Name: Class 9 CS Test`, 10, y); y += 7;
-      doc.text(`Student Name: ${name}`, 10, y); y += 7;
-      doc.text(`Roll Number: ${roll}`, 10, y); y += 10;
+  const schoolImg = await loadImageAsBase64('school_bg.png');
+  const signImg = await loadImageAsBase64('sign.jpg');
 
-      // Image of school building
-      const schoolImg = await loadImageAsBase64('school_bg.png');
+  // Add watermark (before any text)
+  if (schoolImg) {
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    doc.addImage(schoolImg, 'PNG', 30, 50, 150, 150, '', 'NONE', 0.08); // light opacity
+  }
+
+  // Header
+  doc.setFontSize(16);
+  doc.text("Cambridge International School Guwahati", 105, y, { align: "center" }); y += 10;
+  doc.setFontSize(12);
+  doc.text(`Test Name: Class 9 CS Test`, 10, y); y += 7;
+  doc.text(`Student Name: ${name}`, 10, y); y += 7;
+  doc.text(`Roll Number: ${roll}`, 10, y); y += 10;
+
+  // Result Table
+  responses.forEach((res, i) => {
+    doc.setFontSize(11);
+    doc.text(`Q${i + 1}: ${res.question}`, 10, y); y += 6;
+    doc.text(`Your Answer: ${res.selected}`, 10, y); y += 6;
+    doc.text(`Correct Answer: ${res.correct}`, 10, y); y += 6;
+    doc.text(`Status: ${res.selected === res.correct ? "Correct" : "Wrong"}`, 10, y); y += 8;
+    if (y > 240) {
+      doc.addPage();
+      y = 10;
       if (schoolImg) {
-        doc.addImage(schoolImg, 'PNG', 35, y, 140, 40);
-        y += 50;
-      }
-
-      // Result Table
-      responses.forEach((res, i) => {
-        doc.setFontSize(11);
-        doc.text(`Q${i + 1}: ${res.question}`, 10, y); y += 6;
-        doc.text(`Your Answer: ${res.selected}`, 10, y); y += 6;
-        doc.text(`Correct Answer: ${res.correct}`, 10, y); y += 6;
-        doc.text(`Status: ${res.selected === res.correct ? "Correct" : "Wrong"}`, 10, y); y += 8;
-        if (y > 260) { doc.addPage(); y = 10; }
-      });
-
-      // Score
-      const score = responses.filter(r => r.selected === r.correct).length;
-      doc.text(`Total Score: ${score} / ${responses.length}`, 10, y); y += 10;
-
-      // Teacher Signature
-      const signImg = await loadImageAsBase64('sign.jpg');
-      if (signImg) {
-        doc.text("Teacher's Signature:", 140, y); y += 2;
-        doc.addImage(signImg, 'JPEG', 140, y, 40, 20);
-      }
-
-      doc.save(`${name.replace(/\s+/g, '_')}_Result.pdf`);
-    }
-
-    async function loadImageAsBase64(url) {
-      try {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        return await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result);
-          reader.readAsDataURL(blob);
-        });
-      } catch (error) {
-        console.error("Failed to load image:", url);
-        return null;
+        doc.addImage(schoolImg, 'PNG', 30, 50, 150, 150, '', 'NONE', 0.08); // watermark on new page
       }
     }
+  });
+
+  // Score
+  const score = responses.filter(r => r.selected === r.correct).length;
+  doc.text(`Total Score: ${score} / ${responses.length}`, 10, y); y += 10;
+
+  // Teacher Signature
+  if (signImg) {
+    doc.text("Teacher's Signature:", 140, y); y += 2;
+    doc.addImage(signImg, 'JPEG', 140, y, 40, 20);
+  }
+
+  doc.save(`${name.replace(/\s+/g, '_')}_Result.pdf`);
+}
+
 
     loadQuestions();
   </script>
