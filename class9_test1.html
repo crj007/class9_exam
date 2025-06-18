@@ -34,14 +34,9 @@
       border-radius: 10px;
     }
 
-    h1 {
+    h1, h2 {
       text-align: center;
-      font-size: 28px;
       margin-bottom: 10px;
-    }
-
-    h2 {
-      text-align: center;
     }
 
     .welcome-banner {
@@ -116,6 +111,15 @@
     .wrong {
       color: #ff4d4d;
     }
+
+    ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
   </style>
 </head>
 <body>
@@ -125,12 +129,26 @@
     <div class="welcome-banner">
       <p><strong>Welcome:</strong> <span id="studentName"></span> (Roll <span id="studentRoll"></span>)</p>
     </div>
-    <div class="timer">⏰ Time left: <span id="timer">35</span> sec
-      <div class="timer-bar" id="timer-bar"></div>
+
+    <div id="instructions-section">
+      <p><strong>📋 Instructions:</strong></p>
+      <ul>
+        <li>Total questions will appear one at a time.</li>
+        <li>You have <strong>35 seconds</strong> to answer each question.</li>
+        <li>You cannot go back to previous questions.</li>
+        <li>Your result will be shown at the end of the test.</li>
+      </ul>
+      <button onclick="beginTest()">🎬 Begin Test</button>
     </div>
-    <div class="question" id="question-box"></div>
-    <div class="options" id="options-box"></div>
-    <button onclick="nextQuestion()">Next</button>
+
+    <div id="test-section" style="display:none;">
+      <div class="timer">⏰ Time left: <span id="timer">35</span> sec
+        <div class="timer-bar" id="timer-bar"></div>
+      </div>
+      <div class="question" id="question-box"></div>
+      <div class="options" id="options-box"></div>
+      <button onclick="nextQuestion()">Next</button>
+    </div>
   </div>
 
   <script>
@@ -153,7 +171,12 @@
     async function loadQuestions() {
       const res = await fetch("questions.json");
       questions = await res.json();
-      shuffleArray(questions);  // Shuffle the question order
+      shuffleArray(questions);
+    }
+
+    function beginTest() {
+      document.getElementById("instructions-section").style.display = "none";
+      document.getElementById("test-section").style.display = "block";
       showQuestion(currentQuestion);
     }
 
