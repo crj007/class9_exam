@@ -11,6 +11,19 @@
       color: #fff;
       margin: 0;
       padding: 20px;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: url('https://www.transparenttextures.com/patterns/white-diamond.png');
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      z-index: -1;
     }
 
     .container {
@@ -21,7 +34,21 @@
       border-radius: 10px;
     }
 
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
     h2 {
+      text-align: center;
+    }
+
+    .welcome-banner {
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
       text-align: center;
     }
 
@@ -43,16 +70,30 @@
       cursor: pointer;
       background-color: #00c9ff;
       color: #000;
+      transition: 0.2s ease;
     }
 
     button:hover {
       background-color: #b2fefa;
     }
 
+    button:active {
+      transform: scale(0.98);
+      background-color: #a0f0ff;
+    }
+
     .timer {
       text-align: right;
       font-weight: bold;
       margin-bottom: 10px;
+    }
+
+    .timer-bar {
+      height: 8px;
+      background: #00c9ff;
+      border-radius: 5px;
+      margin-top: 5px;
+      transition: width 1s linear;
     }
 
     .result-table {
@@ -79,9 +120,14 @@
 </head>
 <body>
   <div class="container" id="main-container">
+    <h1>🏫 Cambridge International School Guwahati</h1>
     <h2>Class 9 CS - Test</h2>
-    <p><strong>Welcome:</strong> <span id="studentName"></span> (Roll <span id="studentRoll"></span>)</p>
-    <div class="timer">⏰ Time left: <span id="timer">35</span> sec</div>
+    <div class="welcome-banner">
+      <p><strong>Welcome:</strong> <span id="studentName"></span> (Roll <span id="studentRoll"></span>)</p>
+    </div>
+    <div class="timer">⏰ Time left: <span id="timer">35</span> sec
+      <div class="timer-bar" id="timer-bar"></div>
+    </div>
     <div class="question" id="question-box"></div>
     <div class="options" id="options-box"></div>
     <button onclick="nextQuestion()">Next</button>
@@ -110,7 +156,7 @@
       }
 
       const q = questions[index];
-      document.getElementById("question-box").innerHTML = `<p><strong>Q${index + 1}:</strong> ${q.question}</p>`;
+      document.getElementById("question-box").innerHTML = `<p><strong>Q${index + 1} of ${questions.length}:</strong> ${q.question}</p>`;
       const optionsHTML = q.options.map(opt => `
         <label>
           <input type="radio" name="option" value="${opt}"> ${opt}
@@ -140,10 +186,12 @@
     function startTimer() {
       timeLeft = 35;
       document.getElementById("timer").textContent = timeLeft;
+      document.getElementById("timer-bar").style.width = "100%";
       clearInterval(timer);
       timer = setInterval(() => {
         timeLeft--;
         document.getElementById("timer").textContent = timeLeft;
+        document.getElementById("timer-bar").style.width = `${(timeLeft / 35) * 100}%`;
         if (timeLeft <= 0) {
           clearInterval(timer);
           nextQuestion();
@@ -184,7 +232,16 @@
         `;
       });
 
-      resultHTML += `</table><p><strong>Total Score: ${score} / ${responses.length}</strong></p>`;
+      // Add score and emoji
+      let emoji = "🙂";
+      if (score === responses.length) emoji = "🏆";
+      else if (score >= responses.length * 0.75) emoji = "🎉";
+      else if (score >= responses.length * 0.5) emoji = "👍";
+      else emoji = "😕";
+
+      resultHTML += `</table>
+        <p><strong>Total Score: ${score} / ${responses.length}</strong></p>
+        <p><strong>Performance:</strong> ${emoji}</p>`;
 
       document.getElementById("main-container").innerHTML = resultHTML;
 
