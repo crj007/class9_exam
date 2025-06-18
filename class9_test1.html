@@ -277,7 +277,7 @@
       else if (score >= responses.length * 0.5) performance = "Fair";
       doc.text(`Performance: ${performance}`, 10, y); y += 15;
 
-      const signImg = await loadImageAsBase64('sign.jpg');
+      const signImg = await loadImageAsBase64('sign.png');
       if (signImg) {
         doc.text("Teacher's Signature:", 140, y);
         y += 2;
