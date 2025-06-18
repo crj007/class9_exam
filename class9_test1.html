@@ -34,9 +34,14 @@
       border-radius: 10px;
     }
 
-    h1, h2 {
+    h1 {
       text-align: center;
+      font-size: 28px;
       margin-bottom: 10px;
+    }
+
+    h2 {
+      text-align: center;
     }
 
     .welcome-banner {
@@ -112,13 +117,15 @@
       color: #ff4d4d;
     }
 
-    ul {
-      margin-top: 10px;
-      padding-left: 20px;
+    .hidden {
+      display: none;
     }
 
-    ul li {
-      margin-bottom: 8px;
+    .instructions {
+      margin-top: 20px;
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 5px;
     }
   </style>
 </head>
@@ -130,18 +137,18 @@
       <p><strong>Welcome:</strong> <span id="studentName"></span> (Roll <span id="studentRoll"></span>)</p>
     </div>
 
-    <div id="instructions-section">
-      <p><strong>📋 Instructions:</strong></p>
+    <div id="instruction-screen" class="instructions">
+      <h3>📜 Instructions</h3>
       <ul>
-        <li>Total questions will appear one at a time.</li>
-        <li>You have <strong>35 seconds</strong> to answer each question.</li>
-        <li>You cannot go back to previous questions.</li>
-        <li>Your result will be shown at the end of the test.</li>
+        <li>The test consists of multiple choice questions.</li>
+        <li>You will get <strong>35 seconds</strong> per question.</li>
+        <li>Click "Next" to proceed. If you do not answer within time, it will move automatically.</li>
+        <li>Your score and correct answers will be shown at the end.</li>
       </ul>
-      <button onclick="beginTest()">🎬 Begin Test</button>
+      <button onclick="startTest()">✅ Begin Test</button>
     </div>
 
-    <div id="test-section" style="display:none;">
+    <div id="test-screen" class="hidden">
       <div class="timer">⏰ Time left: <span id="timer">35</span> sec
         <div class="timer-bar" id="timer-bar"></div>
       </div>
@@ -174,9 +181,9 @@
       shuffleArray(questions);
     }
 
-    function beginTest() {
-      document.getElementById("instructions-section").style.display = "none";
-      document.getElementById("test-section").style.display = "block";
+    function startTest() {
+      document.getElementById("instruction-screen").classList.add("hidden");
+      document.getElementById("test-screen").classList.remove("hidden");
       showQuestion(currentQuestion);
     }
 
@@ -234,6 +241,11 @@
       clearInterval(timer);
 
       let score = 0;
+      let resultText = `Test Name: Class 9 CS Test\n`;
+      resultText += `Student Name: ${localStorage.getItem("studentName") || "Student"}\n`;
+      resultText += `Roll Number: ${localStorage.getItem("studentRoll") || "-"}\n`;
+      resultText += `---------------------------------------------\n`;
+
       let resultHTML = `
         <h2>✅ Test Submitted</h2>
         <p>Thank you, ${localStorage.getItem("studentName") || "Student"}!</p>
@@ -252,6 +264,7 @@
       responses.forEach((res, i) => {
         const isCorrect = res.selected === res.correct;
         if (isCorrect) score++;
+
         resultHTML += `
           <tr>
             <td>${i + 1}</td>
@@ -261,6 +274,8 @@
             <td class="${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? "✅ Correct" : "❌ Wrong"}</td>
           </tr>
         `;
+
+        resultText += `Q${i + 1}: ${res.question}\nYour Answer: ${res.selected}\nCorrect Answer: ${res.correct}\nStatus: ${isCorrect ? "Correct" : "Wrong"}\n\n`;
       });
 
       let emoji = "🙂";
@@ -271,11 +286,27 @@
 
       resultHTML += `</table>
         <p><strong>Total Score: ${score} / ${responses.length}</strong></p>
-        <p><strong>Performance:</strong> ${emoji}</p>`;
+        <p><strong>Performance:</strong> ${emoji}</p>
+        <button onclick="downloadResult()">⬇️ Download Result</button>
+      `;
+
+      resultText += `---------------------------------------------\nTotal Score: ${score}/${responses.length}\nPerformance: ${emoji}\n`;
 
       document.getElementById("main-container").innerHTML = resultHTML;
 
+      // Save to variable for download
+      window.finalResultText = resultText;
+
       console.log("Student Responses:", responses);
+    }
+
+    function downloadResult() {
+      const blob = new Blob([window.finalResultText], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      const studentName = localStorage.getItem("studentName") || "Student";
+      link.download = `${studentName.replace(/\s+/g, '_')}_Class9_Test_Result.txt`;
+      link.click();
     }
 
     loadQuestions();
