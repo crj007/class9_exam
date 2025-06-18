@@ -8,6 +8,12 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(120deg, #4e54c8, #8f94fb);
+      background-image: url('https://raw.githubusercontent.com/crj007/class9_exam/main/school_bg.png'); /* School photo */
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 250px; /* Size of the logo */
+      background-attachment: fixed;
+      background-blend-mode: overlay; /* To blend with gradient */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -83,8 +89,7 @@
         const response = await fetch("students.json");
         const students = await response.json();
 
-       const student = students.find(s => s.name.toLowerCase().startsWith(username.toLowerCase()) && s.password === password);
-
+        const student = students.find(s => s.name.toLowerCase().startsWith(username.toLowerCase()) && s.password === password);
 
         if (student) {
           localStorage.setItem("studentName", student.name);
