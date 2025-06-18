@@ -227,78 +227,90 @@
       document.getElementById("main-container").innerHTML = resultHTML;
     }
 
-    async function downloadResultAsPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      const name = localStorage.getItem("studentName") || "Student";
-      const roll = localStorage.getItem("studentRoll") || "-";
-      let y = 10;
-      const logoImg = await loadImageAsBase64('logo.jpg');
-      if (logoImg) {
-        doc.addImage(logoImg, 'JPEG', 85, y, 40, 20);
-        y += 25;
-      }
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(16);
-      doc.text("Cambridge International School Guwahati", 105, y, { align: "center" });
-      y += 10;
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(12);
-      doc.text(`Test Name: Class 9 CS Test`, 10, y); y += 7;
-      doc.text(`Student Name: ${name}`, 10, y);
-      doc.text(`Roll Number: ${roll}`, 140, y); y += 10;
-      let score = 0;
-      for (let i = 0; i < responses.length; i++) {
-        const res = responses[i];
-        const isCorrect = res.selected === res.correct;
-        if (isCorrect) score++;
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(11);
-        doc.text(`Q${i + 1}:`, 10, y);
-        doc.setFont("helvetica", "normal");
-        let splitQuestion = doc.splitTextToSize(res.question, 180);
-        doc.text(splitQuestion, 20, y); 
-        y += splitQuestion.length * 6;
-        doc.text(`Your Answer: ${res.selected}`, 20, y); y += 6;
-        doc.text(`Correct Answer: ${res.correct}`, 20, y); y += 6;
-        doc.setTextColor(isCorrect ? 0 : 255, isCorrect ? 128 : 0, isCorrect ? 0 : 0);
-        doc.text(`Status: ${isCorrect ? "✅ Correct" : "❌ Wrong"}`, 20, y);
-        doc.setTextColor(0, 0, 0);
-        y += 10;
-        if (y > 260) {
-          doc.addPage();
-          y = 10;
-        }
-      }
-      const total = responses.length;
-      const emoji = score === total ? "🏆" : score >= total * 0.75 ? "🎉" : score >= total * 0.5 ? "👍" : "😕";
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(13);
-      doc.text(`Total Score: ${score} / ${total}`, 10, y); y += 8;
-      doc.text(`Performance: ${emoji}`, 10, y); y += 10;
-      const signImg = await loadImageAsBase64('sign.jpg');
-      if (signImg) {
-        doc.setFont("helvetica", "normal");
-        doc.text("Teacher's Signature:", 140, y);
-        doc.addImage(signImg, 'JPEG', 140, y + 2, 40, 20);
-      }
-      doc.save(`${name.replace(/\s+/g, '_')}_Result.pdf`);
-    }
+   async function downloadResultAsPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
-    async function loadImageAsBase64(url) {
-      try {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        return await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result);
-          reader.readAsDataURL(blob);
-        });
-      } catch (error) {
-        console.error("Failed to load image:", url);
-        return null;
-      }
+  const name = localStorage.getItem("studentName") || "Student";
+  const roll = localStorage.getItem("studentRoll") || "-";
+  let y = 10;
+
+  // Add Logo
+  const logoImg = await loadImageAsBase64('logo.jpg');
+  if (logoImg) {
+    doc.addImage(logoImg, 'JPEG', 10, y, 30, 30);
+  }
+
+  // Header
+  doc.setFontSize(16);
+  doc.setFont(undefined, "bold");
+  doc.text("Cambridge International School Guwahati", 105, y + 10, { align: "center" });
+
+  doc.setFontSize(12);
+  doc.setFont(undefined, "normal");
+  y += 35;
+  doc.text(`Test Name: Class 9 CS Test`, 10, y); y += 7;
+  doc.text(`Student Name: ${name}`, 10, y); y += 7;
+  doc.text(`Roll Number: ${roll}`, 10, y); y += 10;
+
+  // Results
+  responses.forEach((res, i) => {
+    doc.setFont(undefined, "bold");
+    doc.text(`Q${i + 1}:`, 10, y);
+    doc.setFont(undefined, "normal");
+    doc.text(res.question, 25, y); y += 6;
+
+    doc.text(`Your Answer: ${res.selected}`, 10, y); y += 6;
+    doc.text(`Correct Answer: ${res.correct}`, 10, y); y += 6;
+
+    const isCorrect = res.selected === res.correct;
+    doc.setTextColor(isCorrect ? 0 : 255, 0, 0); // black or red
+    doc.setFont(undefined, "bold");
+    doc.text(`Status: ${isCorrect ? "Correct" : "Wrong"}`, 10, y);
+    doc.setTextColor(0, 0, 0); // reset to black
+    doc.setFont(undefined, "normal");
+    y += 10;
+
+    if (y > 260) {
+      doc.addPage();
+      y = 10;
     }
+  });
+
+  // Total Score
+  const score = responses.filter(r => r.selected === r.correct).length;
+  doc.setFontSize(13);
+  doc.setFont(undefined, "bold");
+  doc.text(`Total Score: ${score} / ${responses.length}`, 10, y); y += 8;
+
+  // Performance
+  let performance = "Needs Improvement";
+  if (score === responses.length) performance = "Excellent";
+  else if (score >= responses.length * 0.75) performance = "Very Good";
+  else if (score >= responses.length * 0.5) performance = "Fair";
+
+  doc.text(`Performance: ${performance}`, 10, y); y += 15;
+
+ // Signature and Date
+const signImg = await loadImageAsBase64('sign.jpg');
+if (signImg) {
+  doc.setFont(undefined, "normal");
+  doc.text("Teacher's Signature:", 140, y);
+  y += 2;
+  doc.addImage(signImg, 'JPEG', 140, y, 40, 20);
+  y += 22;
+
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-IN', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  });
+
+  doc.text(`Date: ${formattedDate}`, 140, y);
+}
+
+
 
     loadQuestions();
   </script>
