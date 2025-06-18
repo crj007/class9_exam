@@ -7,22 +7,32 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(120deg, #4e54c8, #8f94fb);
-      background-image: url('https://raw.githubusercontent.com/crj007/class9_exam/main/school_bg.png'); /* School photo */
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 250px; /* Size of the logo */
-      background-attachment: fixed;
-      background-blend-mode: overlay; /* To blend with gradient */
+      background: url('https://raw.githubusercontent.com/crj007/class9_exam/main/school_bg.png') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      margin: 0;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
       color: #fff;
     }
 
+    /* Overlay for darkening the background slightly */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Adjust darkness */
+      z-index: 0;
+    }
+
     .login-box {
+      position: relative;
+      z-index: 1;
       background-color: rgba(0, 0, 0, 0.6);
       padding: 40px;
       border-radius: 15px;
