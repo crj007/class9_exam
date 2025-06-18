@@ -1,102 +1,107 @@
 [
   {
-    "question": "What is the full form of WWW?",
-    "options": ["World Wide Web", "Web World Wide", "World Web Window", "World Wide Window"],
-    "answer": "World Wide Web"
+    "question": "What is the full form of USB?",
+    "options": ["Universal Serial Bus", "Uniform Serial Bus", "Universal System Bus", "Uniform System Bus"],
+    "answer": "Universal Serial Bus"
   },
   {
-    "question": "Which protocol is used to access web pages on the internet?",
-    "options": ["FTP", "HTTP", "SMTP", "IP"],
-    "answer": "HTTP"
+    "question": "Which of these is a method of data transmission?",
+    "options": ["Serial", "Binary", "Hexadecimal", "Compression"],
+    "answer": "Serial"
   },
   {
-    "question": "Which of the following is a web browser?",
-    "options": ["Linux", "Chrome", "Apache", "Python"],
-    "answer": "Chrome"
+    "question": "What is the denary value of the binary number 1010?",
+    "options": ["8", "10", "12", "14"],
+    "answer": "10"
   },
   {
-    "question": "What does URL stand for?",
-    "options": ["Universal Resource Locator", "Uniform Resource Locator", "Unified Resource Location", "Unique Resource Locator"],
-    "answer": "Uniform Resource Locator"
+    "question": "Which data compression method permanently removes some data?",
+    "options": ["Lossy", "Lossless", "Serial", "Parallel"],
+    "answer": "Lossy"
   },
   {
-    "question": "What is a website's home page?",
-    "options": ["The last page", "The main page", "A contact page", "A page with ads"],
-    "answer": "The main page"
+    "question": "What is the hexadecimal equivalent of the denary number 15?",
+    "options": ["A", "B", "E", "F"],
+    "answer": "F"
   },
   {
-    "question": "Which of the following is not a cryptocurrency?",
-    "options": ["Bitcoin", "Ethereum", "Litecoin", "PayPal"],
-    "answer": "PayPal"
+    "question": "Which USB version offers the fastest data transfer speed?",
+    "options": ["USB 1.0", "USB 2.0", "USB 3.0", "USB 4.0"],
+    "answer": "USB 4.0"
   },
   {
-    "question": "What technology is cryptocurrency based on?",
-    "options": ["Blockchain", "Cloud computing", "Internet of Things", "Artificial Intelligence"],
-    "answer": "Blockchain"
+    "question": "What is the binary equivalent of the hexadecimal digit 'C'?",
+    "options": ["1100", "1010", "1101", "1110"],
+    "answer": "1100"
   },
   {
-    "question": "Who invented Bitcoin?",
-    "options": ["Vitalik Buterin", "Elon Musk", "Satoshi Nakamoto", "Mark Zuckerberg"],
-    "answer": "Satoshi Nakamoto"
+    "question": "Which type of data transmission sends multiple bits simultaneously?",
+    "options": ["Serial", "Parallel", "Synchronous", "Asynchronous"],
+    "answer": "Parallel"
   },
   {
-    "question": "What is the primary use of cryptocurrency?",
-    "options": ["Gaming", "Decentralized digital transactions", "Messaging", "Cloud storage"],
-    "answer": "Decentralized digital transactions"
+    "question": "What is the main advantage of lossless compression?",
+    "options": ["Smaller file size", "No data loss", "Faster transmission", "Better quality"],
+    "answer": "No data loss"
   },
   {
-    "question": "Which of the following is a feature of blockchain?",
-    "options": ["Centralized control", "Transparent and immutable", "Editable records", "Single point of failure"],
-    "answer": "Transparent and immutable"
+    "question": "How many bits are needed to represent the hexadecimal number FF?",
+    "options": ["4", "8", "16", "32"],
+    "answer": "8"
   },
   {
-    "question": "What does 'phishing' mean in cyber security?",
-    "options": ["Fishing in secure networks", "Sending malicious emails to steal data", "A type of virus", "Scanning a network"],
-    "answer": "Sending malicious emails to steal data"
+    "question": "Which USB connector type is commonly used for smartphones?",
+    "options": ["Type-A", "Type-B", "Type-C", "Micro-USB"],
+    "answer": "Type-C"
   },
   {
-    "question": "What is a firewall?",
-    "options": ["An antivirus", "A physical wall", "A network security system", "A browser"],
-    "answer": "A network security system"
+    "question": "What is the denary value of the hexadecimal number 2A?",
+    "options": ["32", "42", "52", "62"],
+    "answer": "42"
   },
   {
-    "question": "Which of these is an example of malware?",
-    "options": ["Google Chrome", "Microsoft Word", "Trojan Horse", "Ubuntu"],
-    "answer": "Trojan Horse"
+    "question": "Which method of data transmission is better for long distances?",
+    "options": ["Serial", "Parallel", "Both equally", "Neither"],
+    "answer": "Serial"
   },
   {
-    "question": "What is two-factor authentication?",
-    "options": ["Logging in from two devices", "Using two passwords", "Using password plus another method of verification", "Encrypting files twice"],
-    "answer": "Using password plus another method of verification"
+    "question": "What is the binary representation of the denary number 7?",
+    "options": ["0111", "1000", "0101", "1100"],
+    "answer": "0111"
   },
   {
-    "question": "Which one of these is a strong password?",
-    "options": ["123456", "password", "qwerty", "M@rket#2025"],
-    "answer": "M@rket#2025"
+    "question": "Which of these is an example of lossy compression?",
+    "options": ["ZIP", "MP3", "PNG", "FLAC"],
+    "answer": "MP3"
   },
   {
-    "question": "What is the purpose of HTTPS?",
-    "options": ["To browse anonymously", "To prevent malware", "To securely transmit data over the internet", "To block pop-ups"],
-    "answer": "To securely transmit data over the internet"
+    "question": "What is the maximum data transfer rate of USB 2.0?",
+    "options": ["12 Mbps", "480 Mbps", "5 Gbps", "10 Gbps"],
+    "answer": "480 Mbps"
   },
   {
-    "question": "What is the function of an IP address?",
-    "options": ["To store data", "To identify a device on a network", "To create viruses", "To translate languages"],
-    "answer": "To identify a device on a network"
+    "question": "How many values can be represented by 4 bits?",
+    "options": ["4", "8", "16", "32"],
+    "answer": "16"
   },
   {
-    "question": "What is the main danger of public Wi-Fi networks?",
-    "options": ["Slow internet speed", "Higher cost", "Risk of data theft", "Limited access to websites"],
-    "answer": "Risk of data theft"
+    "question": "Which of these is an advantage of hexadecimal over binary?",
+    "options": ["More precise", "Easier for humans to read", "Takes less memory", "Faster to process"],
+    "answer": "Easier for humans to read"
   },
   {
-    "question": "Which of the following is a digital wallet?",
-    "options": ["Dropbox", "Google Pay", "Instagram", "YouTube"],
-    "answer": "Google Pay"
+    "question": "What type of data transmission uses a clock signal?",
+    "options": ["Asynchronous", "Synchronous", "Serial", "Parallel"],
+    "answer": "Synchronous"
   },
   {
-    "question": "Which of the following is a type of cyber attack?",
-    "options": ["Phishing", "Photoshopping", "Streaming", "Browsing"],
-    "answer": "Phishing"
+    "question": "Which compression method would be best for text documents?",
+    "options": ["Lossy", "Lossless", "Both equally", "Neither"],
+    "answer": "Lossless"
+  },
+  {
+    "question": "What is the hexadecimal equivalent of the binary number 11101111?",
+    "options": ["EE", "EF", "FE", "FF"],
+    "answer": "EF"
   }
 ]
