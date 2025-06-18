@@ -143,9 +143,17 @@
     document.getElementById("studentName").textContent = localStorage.getItem("studentName") || "Student";
     document.getElementById("studentRoll").textContent = localStorage.getItem("studentRoll") || "-";
 
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
     async function loadQuestions() {
       const res = await fetch("questions.json");
       questions = await res.json();
+      shuffleArray(questions);  // Shuffle the question order
       showQuestion(currentQuestion);
     }
 
@@ -232,7 +240,6 @@
         `;
       });
 
-      // Add score and emoji
       let emoji = "🙂";
       if (score === responses.length) emoji = "🏆";
       else if (score >= responses.length * 0.75) emoji = "🎉";
