@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Class 9 Test</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -11,19 +12,6 @@
       color: #fff;
       margin: 0;
       padding: 20px;
-      position: relative;
-    }
-
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: url('https://www.transparenttextures.com/patterns/white-diamond.png');
-      width: 100%;
-      height: 100%;
-      opacity: 0.1;
-      z-index: -1;
     }
 
     .container {
@@ -34,13 +22,7 @@
       border-radius: 10px;
     }
 
-    h1 {
-      text-align: center;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    h2 {
+    h1, h2 {
       text-align: center;
     }
 
@@ -70,16 +52,6 @@
       cursor: pointer;
       background-color: #00c9ff;
       color: #000;
-      transition: 0.2s ease;
-    }
-
-    button:hover {
-      background-color: #b2fefa;
-    }
-
-    button:active {
-      transform: scale(0.98);
-      background-color: #a0f0ff;
     }
 
     .timer {
@@ -105,7 +77,6 @@
     .result-table th, .result-table td {
       border: 1px solid #ccc;
       padding: 8px;
-      text-align: left;
       background-color: rgba(255, 255, 255, 0.1);
     }
 
@@ -127,15 +98,21 @@
       padding: 15px;
       border-radius: 5px;
     }
+
+    .logo {
+      width: 100px;
+      display: block;
+      margin: auto;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
   <div class="container" id="main-container">
-   <img src="https://raw.githubusercontent.com/crj007/class9_exam/main/logo.jpg" alt="School Logo" style="width: 100px; display: block; margin: auto; margin-bottom: 10px;">
-
-
+    <img src="logo.jpg" alt="School Logo" class="logo" />
     <h1>🏫 Cambridge International School Guwahati</h1>
     <h2>Class 9 CS - Test</h2>
+
     <div class="welcome-banner">
       <p><strong>Welcome:</strong> <span id="studentName"></span> (Roll <span id="studentRoll"></span>)</p>
     </div>
@@ -145,8 +122,7 @@
       <ul>
         <li>The test consists of multiple choice questions.</li>
         <li>You will get <strong>35 seconds</strong> per question.</li>
-        <li>Click "Next" to proceed. If you do not answer within time, it will move automatically.</li>
-        <li>Your score and correct answers will be shown at the end.</li>
+        <li>Click "Next" to proceed. If not answered in time, it auto-moves.</li>
       </ul>
       <button onclick="startTest()">✅ Begin Test</button>
     </div>
@@ -197,7 +173,7 @@
       }
 
       const q = questions[index];
-      document.getElementById("question-box").innerHTML = `<p><strong>Q${index + 1} of ${questions.length}:</strong> ${q.question}</p>`;
+      document.getElementById("question-box").innerHTML = `<p><strong>Q${index + 1}:</strong> ${q.question}</p>`;
       const optionsHTML = q.options.map(opt => `
         <label>
           <input type="radio" name="option" value="${opt}"> ${opt}
@@ -240,14 +216,13 @@
       }, 1000);
     }
 
-    function submitTest() {
+    async function submitTest() {
       clearInterval(timer);
-
       let score = 0;
-      let resultText = `Test Name: Class 9 CS Test\n`;
-      resultText += `Student Name: ${localStorage.getItem("studentName") || "Student"}\n`;
-      resultText += `Roll Number: ${localStorage.getItem("studentRoll") || "-"}\n`;
-      resultText += `---------------------------------------------\n`;
+
+      responses.forEach(res => {
+        if (res.selected === res.correct) score++;
+      });
 
       let resultHTML = `
         <h2>✅ Test Submitted</h2>
@@ -255,19 +230,11 @@
         <p>Your answers have been recorded.</p>
         <h3>📊 Results:</h3>
         <table class="result-table">
-          <tr>
-            <th>#</th>
-            <th>Question</th>
-            <th>Your Answer</th>
-            <th>Correct Answer</th>
-            <th>Status</th>
-          </tr>
+          <tr><th>#</th><th>Question</th><th>Your Answer</th><th>Correct Answer</th><th>Status</th></tr>
       `;
 
       responses.forEach((res, i) => {
         const isCorrect = res.selected === res.correct;
-        if (isCorrect) score++;
-
         resultHTML += `
           <tr>
             <td>${i + 1}</td>
@@ -275,41 +242,80 @@
             <td>${res.selected}</td>
             <td>${res.correct}</td>
             <td class="${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? "✅ Correct" : "❌ Wrong"}</td>
-          </tr>
-        `;
-
-        resultText += `Q${i + 1}: ${res.question}\nYour Answer: ${res.selected}\nCorrect Answer: ${res.correct}\nStatus: ${isCorrect ? "Correct" : "Wrong"}\n\n`;
+          </tr>`;
       });
 
-      let emoji = "🙂";
-      if (score === responses.length) emoji = "🏆";
-      else if (score >= responses.length * 0.75) emoji = "🎉";
-      else if (score >= responses.length * 0.5) emoji = "👍";
-      else emoji = "😕";
+      const emoji = score === responses.length ? "🏆" : score >= responses.length * 0.75 ? "🎉" : score >= responses.length * 0.5 ? "👍" : "😕";
 
       resultHTML += `</table>
         <p><strong>Total Score: ${score} / ${responses.length}</strong></p>
         <p><strong>Performance:</strong> ${emoji}</p>
-        <button onclick="downloadResult()">⬇️ Download Result</button>
+        <button onclick="downloadResultAsPDF()">⬇️ Download Result (PDF)</button>
       `;
 
-      resultText += `---------------------------------------------\nTotal Score: ${score}/${responses.length}\nPerformance: ${emoji}\n`;
-
       document.getElementById("main-container").innerHTML = resultHTML;
-
-      // Save to variable for download
-      window.finalResultText = resultText;
-
-      console.log("Student Responses:", responses);
     }
 
-    function downloadResult() {
-      const blob = new Blob([window.finalResultText], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      const studentName = localStorage.getItem("studentName") || "Student";
-      link.download = `${studentName.replace(/\s+/g, '_')}_Class9_Test_Result.txt`;
-      link.click();
+    async function downloadResultAsPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const name = localStorage.getItem("studentName") || "Student";
+      const roll = localStorage.getItem("studentRoll") || "-";
+      let y = 10;
+
+      // Header
+      doc.setFontSize(16);
+      doc.text("Cambridge International School Guwahati", 105, y, { align: "center" }); y += 10;
+      doc.setFontSize(12);
+      doc.text(`Test Name: Class 9 CS Test`, 10, y); y += 7;
+      doc.text(`Student Name: ${name}`, 10, y); y += 7;
+      doc.text(`Roll Number: ${roll}`, 10, y); y += 10;
+
+      // Image of school building
+      const schoolImg = await loadImageAsBase64('school_bg.png');
+      if (schoolImg) {
+        doc.addImage(schoolImg, 'PNG', 35, y, 140, 40);
+        y += 50;
+      }
+
+      // Result Table
+      responses.forEach((res, i) => {
+        doc.setFontSize(11);
+        doc.text(`Q${i + 1}: ${res.question}`, 10, y); y += 6;
+        doc.text(`Your Answer: ${res.selected}`, 10, y); y += 6;
+        doc.text(`Correct Answer: ${res.correct}`, 10, y); y += 6;
+        doc.text(`Status: ${res.selected === res.correct ? "Correct" : "Wrong"}`, 10, y); y += 8;
+        if (y > 260) { doc.addPage(); y = 10; }
+      });
+
+      // Score
+      const score = responses.filter(r => r.selected === r.correct).length;
+      doc.text(`Total Score: ${score} / ${responses.length}`, 10, y); y += 10;
+
+      // Teacher Signature
+      const signImg = await loadImageAsBase64('sign.jpg');
+      if (signImg) {
+        doc.text("Teacher's Signature:", 140, y); y += 2;
+        doc.addImage(signImg, 'JPEG', 140, y, 40, 20);
+      }
+
+      doc.save(`${name.replace(/\s+/g, '_')}_Result.pdf`);
+    }
+
+    async function loadImageAsBase64(url) {
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.readAsDataURL(blob);
+        });
+      } catch (error) {
+        console.error("Failed to load image:", url);
+        return null;
+      }
     }
 
     loadQuestions();
