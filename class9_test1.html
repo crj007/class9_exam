@@ -147,17 +147,17 @@
     document.getElementById("studentName").textContent = localStorage.getItem("studentName") || "Student";
     document.getElementById("studentRoll").textContent = localStorage.getItem("studentRoll") || "-";
 
+    async function loadQuestions() {
+      const res = await fetch("questions.json");
+      questions = await res.json();
+      shuffleArray(questions);
+    }
+
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
       }
-    }
-
-    async function loadQuestions() {
-      const res = await fetch("questions.json");
-      questions = await res.json();
-      shuffleArray(questions);
     }
 
     function startTest() {
@@ -216,62 +216,81 @@
       }, 1000);
     }
 
-    async function loadImageAsBase64(url) {
-      const response = await fetch(url);
-      const blob = await response.blob();
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(blob);
+    async function submitTest() {
+      clearInterval(timer);
+      let score = 0;
+
+      responses.forEach(res => {
+        if (res.selected === res.correct) score++;
       });
+
+      let resultHTML = `
+        <h2>✅ Test Submitted</h2>
+        <p>Thank you, ${localStorage.getItem("studentName") || "Student"}!</p>
+        <p>Your answers have been recorded.</p>
+        <h3>📊 Results:</h3>
+        <table class="result-table">
+          <tr><th>#</th><th>Question</th><th>Your Answer</th><th>Correct Answer</th><th>Status</th></tr>
+      `;
+
+      responses.forEach((res, i) => {
+        const isCorrect = res.selected === res.correct;
+        resultHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${res.question}</td>
+            <td>${res.selected}</td>
+            <td>${res.correct}</td>
+            <td class="${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? "✅ Correct" : "❌ Wrong"}</td>
+          </tr>`;
+      });
+
+      const emoji = score === responses.length ? "🏆" : score >= responses.length * 0.75 ? "🎉" : score >= responses.length * 0.5 ? "👍" : "😕";
+
+      resultHTML += `</table>
+        <p><strong>Total Score: ${score} / ${responses.length}</strong></p>
+        <p><strong>Performance:</strong> ${emoji}</p>
+        <button onclick="downloadResultAsPDF()">⬇️ Download Result (PDF)</button>
+      `;
+
+      document.getElementById("main-container").innerHTML = resultHTML;
     }
 
     async function downloadResultAsPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const pageHeight = doc.internal.pageSize.getHeight();
-      let y = 20;
 
       const name = localStorage.getItem("studentName") || "Student";
       const roll = localStorage.getItem("studentRoll") || "-";
-      const schoolBg = await loadImageAsBase64('school_bg.png');
-      const signImg = await loadImageAsBase64('sign.jpg');
+      let y = 10;
 
-      function addWatermark() {
-        doc.addImage(schoolBg, 'PNG', 0, 0, pageWidth, pageHeight, '', 'NONE', 0.05);
+      // Add logo above school name
+      const logoImg = await loadImageAsBase64('logo.jpg');
+      if (logoImg) {
+        doc.addImage(logoImg, 'JPEG', 85, y, 40, 20);
+        y += 25;
       }
 
-      addWatermark();
-
       doc.setFontSize(16);
-      doc.text("Cambridge International School Guwahati", pageWidth / 2, y, { align: "center" });
-      y += 10;
-
+      doc.text("Cambridge International School Guwahati", 105, y, { align: "center" }); y += 10;
       doc.setFontSize(12);
       doc.text(`Test Name: Class 9 CS Test`, 10, y); y += 7;
       doc.text(`Student Name: ${name}`, 10, y); y += 7;
       doc.text(`Roll Number: ${roll}`, 10, y); y += 10;
 
-      const score = responses.filter(r => r.selected === r.correct).length;
-
-      for (let i = 0; i < responses.length; i++) {
-        const res = responses[i];
+      responses.forEach((res, i) => {
         doc.setFontSize(11);
         doc.text(`Q${i + 1}: ${res.question}`, 10, y); y += 6;
         doc.text(`Your Answer: ${res.selected}`, 10, y); y += 6;
         doc.text(`Correct Answer: ${res.correct}`, 10, y); y += 6;
-        doc.text(`Status: ${res.selected === res.correct ? "✅ Correct" : "❌ Wrong"}`, 10, y); y += 8;
+        doc.text(`Status: ${res.selected === res.correct ? "Correct ✅" : "Wrong ❌"}`, 10, y); y += 8;
+        if (y > 260) { doc.addPage(); y = 10; }
+      });
 
-        if (y > 250) {
-          doc.addPage();
-          y = 20;
-          addWatermark();
-        }
-      }
+      const score = responses.filter(r => r.selected === r.correct).length;
+      doc.text(`Total Score: ${score} / ${responses.length}`, 10, y); y += 10;
 
-      doc.text(`Total Score: ${score}/${responses.length}`, 10, y); y += 10;
-
+      const signImg = await loadImageAsBase64('sign.jpg');
       if (signImg) {
         doc.text("Teacher's Signature:", 140, y); y += 2;
         doc.addImage(signImg, 'JPEG', 140, y, 40, 20);
@@ -280,12 +299,19 @@
       doc.save(`${name.replace(/\s+/g, '_')}_Result.pdf`);
     }
 
-    function submitTest() {
-      document.getElementById("test-screen").innerHTML = `
-        <h3>🎉 Test Completed</h3>
-        <p>You can now download your result.</p>
-        <button onclick="downloadResultAsPDF()">📄 Download Result as PDF</button>
-      `;
+    async function loadImageAsBase64(url) {
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.readAsDataURL(blob);
+        });
+      } catch (error) {
+        console.error("Failed to load image:", url);
+        return null;
+      }
     }
 
     loadQuestions();
