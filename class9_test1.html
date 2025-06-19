@@ -84,8 +84,6 @@
       margin: auto;
       margin-bottom: 10px;
     }
-
-    /* 🎈 Balloon + 🎉 Confetti Celebration */
     @keyframes float {
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(-600px); opacity: 0; }
@@ -148,7 +146,6 @@
       <button onclick="nextQuestion()">Next</button>
     </div>
   </div>
-
   <script>
     let questions = [];
     let currentQuestion = 0;
@@ -188,9 +185,7 @@
       }
       const q = questions[index];
       document.getElementById("question-box").innerHTML = `<p><strong>Q${index + 1}:</strong> ${q.question}</p>`;
-      const optionsHTML = q.options.map(opt => `
-        <label><input type="radio" name="option" value="${opt}"> ${opt}</label>
-      `).join("");
+      const optionsHTML = q.options.map(opt => `<label><input type="radio" name="option" value="${opt}"> ${opt}</label>`).join("");
       document.getElementById("options-box").innerHTML = optionsHTML;
       startTimer();
 
@@ -237,6 +232,7 @@
     }
 
     async function submitTest() {
+      saveAnswer(); // Fix: ensure last answer is saved
       clearInterval(timer);
       let score = 0;
       responses.forEach(res => {
@@ -272,7 +268,6 @@
       `;
 
       document.getElementById("main-container").innerHTML = resultHTML;
-
       if (score > 18) showCelebration();
     }
 
@@ -343,11 +338,7 @@
         doc.text(`Status: ${isCorrect ? "Correct" : "Wrong"}`, 10, y);
         doc.setTextColor(0, 0, 0);
         y += 10;
-        if (y > 260) {
-          doc.addPage();
-          doc.rect(5, 5, 200, 287);
-          y = 10;
-        }
+        if (y > 260) { doc.addPage(); doc.rect(5, 5, 200, 287); y = 10; }
       });
 
       const score = responses.filter(r => r.selected === r.correct).length;
@@ -369,9 +360,7 @@
         y += 22;
         const today = new Date();
         const formattedDate = today.toLocaleDateString('en-IN', {
-          day: '2-digit',
-          month: 'short',
-          year: 'numeric'
+          day: '2-digit', month: 'short', year: 'numeric'
         });
         doc.text(`Date: ${formattedDate}`, 140, y);
       }
