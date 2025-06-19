@@ -84,6 +84,29 @@
       margin: auto;
       margin-bottom: 10px;
     }
+
+    /* 🎈 Celebration Animation */
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-600px); opacity: 0; }
+    }
+    .balloon {
+      width: 40px;
+      height: 60px;
+      background-color: #ff6f61;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      animation: float 6s ease-in infinite;
+    }
+    .celebration {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 9999;
+      pointer-events: none;
+      overflow: hidden;
+    }
   </style>
 </head>
 <body>
@@ -120,7 +143,6 @@
     let timeLeft = 35;
     let timer;
 
-    // Load student info and questions on page load
     document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("studentName").textContent = localStorage.getItem("studentName") || "Student";
       document.getElementById("studentRoll").textContent = localStorage.getItem("studentRoll") || "-";
@@ -158,6 +180,15 @@
       `).join("");
       document.getElementById("options-box").innerHTML = optionsHTML;
       startTimer();
+
+      const nextBtn = document.querySelector('#test-screen button');
+      if (currentQuestion === questions.length - 1) {
+        nextBtn.textContent = "Submit Test";
+        nextBtn.onclick = submitTest;
+      } else {
+        nextBtn.textContent = "Next";
+        nextBtn.onclick = nextQuestion;
+      }
     }
 
     function nextQuestion() {
@@ -207,6 +238,7 @@
         <table class="result-table">
           <tr><th>#</th><th>Question</th><th>Your Answer</th><th>Correct Answer</th><th>Status</th></tr>
       `;
+
       responses.forEach((res, i) => {
         const isCorrect = res.selected === res.correct;
         resultHTML += `
@@ -225,7 +257,24 @@
         <p><strong>Performance:</strong> ${emoji}</p>
         <button onclick="downloadResultAsPDF()">⬇️ Download Result (PDF)</button>
       `;
+
       document.getElementById("main-container").innerHTML = resultHTML;
+
+      if (score > 18) showCelebration();
+    }
+
+    function showCelebration() {
+      const celebration = document.createElement("div");
+      celebration.className = "celebration";
+      for (let i = 0; i < 30; i++) {
+        const balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.left = Math.random() * 100 + "%";
+        balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+        balloon.style.animationDelay = (Math.random() * 3) + "s";
+        celebration.appendChild(balloon);
+      }
+      document.body.appendChild(celebration);
     }
 
     async function downloadResultAsPDF() {
@@ -234,6 +283,10 @@
       const name = localStorage.getItem("studentName") || "Student";
       const roll = localStorage.getItem("studentRoll") || "-";
       let y = 10;
+
+      doc.setDrawColor(0);
+      doc.setLineWidth(0.5);
+      doc.rect(5, 5, 200, 287); // page border
 
       const logoImg = await loadImageAsBase64('logo.jpg');
       if (logoImg) {
@@ -263,7 +316,11 @@
         doc.text(`Status: ${isCorrect ? "Correct" : "Wrong"}`, 10, y);
         doc.setTextColor(0, 0, 0);
         y += 10;
-        if (y > 260) { doc.addPage(); y = 10; }
+        if (y > 260) {
+          doc.addPage();
+          doc.rect(5, 5, 200, 287); // border on new page
+          y = 10;
+        }
       });
 
       const score = responses.filter(r => r.selected === r.correct).length;
