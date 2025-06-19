@@ -85,7 +85,7 @@
       margin-bottom: 10px;
     }
 
-    /* 🎈 Celebration Animation */
+    /* 🎈 Balloon + 🎉 Confetti Celebration */
     @keyframes float {
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(-600px); opacity: 0; }
@@ -98,6 +98,19 @@
       position: absolute;
       bottom: 0;
       animation: float 6s ease-in infinite;
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      opacity: 0.7;
+      top: 0;
+      animation: drop 4s linear infinite;
+    }
+    @keyframes drop {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
     }
     .celebration {
       position: fixed;
@@ -266,6 +279,7 @@
     function showCelebration() {
       const celebration = document.createElement("div");
       celebration.className = "celebration";
+
       for (let i = 0; i < 30; i++) {
         const balloon = document.createElement("div");
         balloon.className = "balloon";
@@ -274,7 +288,20 @@
         balloon.style.animationDelay = (Math.random() * 3) + "s";
         celebration.appendChild(balloon);
       }
+
+      for (let i = 0; i < 60; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "%";
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        confetti.style.animationDelay = Math.random() * 4 + "s";
+        celebration.appendChild(confetti);
+      }
+
       document.body.appendChild(celebration);
+      setTimeout(() => {
+        document.body.removeChild(celebration);
+      }, 60000);
     }
 
     async function downloadResultAsPDF() {
@@ -286,7 +313,7 @@
 
       doc.setDrawColor(0);
       doc.setLineWidth(0.5);
-      doc.rect(5, 5, 200, 287); // page border
+      doc.rect(5, 5, 200, 287);
 
       const logoImg = await loadImageAsBase64('logo.jpg');
       if (logoImg) {
@@ -318,7 +345,7 @@
         y += 10;
         if (y > 260) {
           doc.addPage();
-          doc.rect(5, 5, 200, 287); // border on new page
+          doc.rect(5, 5, 200, 287);
           y = 10;
         }
       });
