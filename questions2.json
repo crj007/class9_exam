@@ -1,0 +1,102 @@
+[
+  {
+    "question": "What is the primary purpose of data compression?",
+    "options": ["Increase file size", "Reduce file size", "Encrypt data", "Change file format"],
+    "answer": "Reduce file size"
+  },
+  {
+    "question": "Which of these is a disadvantage of parallel data transmission?",
+    "options": ["Slower speed", "Skewing of data", "Limited to short distances", "Requires more wires"],
+    "answer": "Skewing of data"
+  },
+  {
+    "question": "What is the binary equivalent of the denary number 25?",
+    "options": ["11001", "10101", "11100", "10011"],
+    "answer": "11001"
+  },
+  {
+    "question": "Which USB standard introduced USB-C connectors?",
+    "options": ["USB 2.0", "USB 3.0", "USB 3.1", "USB 4.0"],
+    "answer": "USB 3.1"
+  },
+  {
+    "question": "What is the hexadecimal representation of the binary number 10110110?",
+    "options": ["B6", "D6", "A6", "C6"],
+    "answer": "B6"
+  },
+  {
+    "question": "Which type of data transmission does not use a clock signal?",
+    "options": ["Synchronous", "Asynchronous", "Parallel", "Serial"],
+    "answer": "Asynchronous"
+  },
+  {
+    "question": "What is the denary value of the hexadecimal number '1F'?",
+    "options": ["25", "30", "31", "35"],
+    "answer": "31"
+  },
+  {
+    "question": "Which of these is an example of lossless compression?",
+    "options": ["JPEG", "MPEG", "ZIP", "MP3"],
+    "answer": "ZIP"
+  },
+  {
+    "question": "How many bits are in a nibble?",
+    "options": ["2", "4", "8", "16"],
+    "answer": "4"
+  },
+  {
+    "question": "Which USB version first introduced SuperSpeed data transfer (5 Gbps)?",
+    "options": ["USB 1.0", "USB 2.0", "USB 3.0", "USB 3.1"],
+    "answer": "USB 3.0"
+  },
+  {
+    "question": "What is the binary number 1001 + 0111 in denary?",
+    "options": ["12", "16", "18", "20"],
+    "answer": "16"
+  },
+  {
+    "question": "Which method of data transmission is used in USB cables?",
+    "options": ["Parallel", "Serial", "Wireless", "Optical"],
+    "answer": "Serial"
+  },
+  {
+    "question": "What is the main disadvantage of lossy compression?",
+    "options": ["Larger file size", "Slower decompression", "Loss of quality", "Incompatibility"],
+    "answer": "Loss of quality"
+  },
+  {
+    "question": "Convert the denary number 45 to hexadecimal.",
+    "options": ["2A", "2D", "3A", "3D"],
+    "answer": "2D"
+  },
+  {
+    "question": "Which of these is a characteristic of synchronous transmission?",
+    "options": ["No clock signal", "Variable timing", "Uses start/stop bits", "Fixed timing"],
+    "answer": "Fixed timing"
+  },
+  {
+    "question": "What is the maximum theoretical speed of USB 3.2 Gen 2x2?",
+    "options": ["5 Gbps", "10 Gbps", "20 Gbps", "40 Gbps"],
+    "answer": "20 Gbps"
+  },
+  {
+    "question": "Which binary shift operation multiplies a number by 2?",
+    "options": ["Left shift", "Right shift", "Circular shift", "Logical shift"],
+    "answer": "Left shift"
+  },
+  {
+    "question": "What is the denary value of the binary number 110110?",
+    "options": ["52", "54", "56", "58"],
+    "answer": "54"
+  },
+  {
+    "question": "Which compression method is used for PNG images?",
+    "options": ["Lossy", "Lossless", "Both", "Neither"],
+    "answer": "Lossless"
+  },
+  {
+    "question": "What is the main advantage of hexadecimal in computing?",
+    "options": ["More precise calculations", "Easier to read than binary", "Takes less storage", "Faster processing"],
+    "answer": "Easier to read than binary"
+  }
+]
