@@ -310,9 +310,9 @@
 
     document.getElementById("main-container").innerHTML = resultHTML;
 
-    if (score > 16) {
+    if (score >= 16) {
       showCelebration();
-    } else if (score < 12) {
+    } else if (score < 16) {
       showEncouragement();
     }
   }
