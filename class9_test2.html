@@ -3,40 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Class 9 CBT</title>
+  <title>Class 9 Test</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(120deg, #4e54c8, #8f94fb);
-      color: #fff;
+      background: url('https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       padding: 20px;
+      min-height: 100vh;
+      color: #000;
     }
+
     .container {
-      max-width: 700px;
+      max-width: 720px;
       margin: auto;
-      background-color: rgba(0, 0, 0, 0.6);
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      border-radius: 16px;
       padding: 30px;
-      border-radius: 10px;
+      color: #000;
     }
+
     h1, h2 {
       text-align: center;
+      color: #222;
     }
-    .welcome-banner {
-      background: rgba(255,255,255,0.1);
-      padding: 10px;
-      border-radius: 5px;
+
+    .welcome-banner, .instructions {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 10px;
+      padding: 15px;
       margin-top: 10px;
-      text-align: center;
+      color: #000;
     }
+
     .question {
       margin-top: 20px;
     }
+
     .options label {
       display: block;
       margin: 10px 0;
     }
+
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -44,40 +59,41 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      background-color: #00c9ff;
-      color: #000;
+      background-color: #1976d2;
+      color: #fff;
     }
+
     .timer {
       text-align: right;
       font-weight: bold;
       margin-bottom: 10px;
     }
+
     .timer-bar {
       height: 8px;
-      background: #00c9ff;
+      background: #1976d2;
       border-radius: 5px;
       margin-top: 5px;
       transition: width 1s linear;
     }
+
     .result-table {
       width: 100%;
       margin-top: 20px;
       border-collapse: collapse;
     }
+
     .result-table th, .result-table td {
-      border: 1px solid #ccc;
+      border: 1px solid #888;
       padding: 8px;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.7);
+      color: #000;
     }
-    .correct { color: #00ff00; }
-    .wrong { color: #ff4d4d; }
+
+    .correct { color: green; }
+    .wrong { color: red; }
     .hidden { display: none; }
-    .instructions {
-      margin-top: 20px;
-      background: rgba(255,255,255,0.1);
-      padding: 15px;
-      border-radius: 5px;
-    }
+
     .logo {
       width: 100px;
       display: block;
@@ -85,10 +101,22 @@
       margin-bottom: 10px;
     }
 
+    /* 🎉 Celebration Animations */
     @keyframes float {
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(-600px); opacity: 0; }
     }
+
+    @keyframes drop {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
+
+    @keyframes fireworks {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
     .balloon {
       width: 40px;
       height: 60px;
@@ -98,6 +126,7 @@
       bottom: 0;
       animation: float 6s ease-in infinite;
     }
+
     .confetti {
       position: absolute;
       width: 10px;
@@ -107,14 +136,7 @@
       top: 0;
       animation: drop 4s linear infinite;
     }
-    @keyframes drop {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(100vh); }
-    }
-    @keyframes fireworks {
-      0% { transform: scale(0); opacity: 1; }
-      100% { transform: scale(1.5); opacity: 0; }
-    }
+
     .firework {
       position: absolute;
       width: 20px;
@@ -124,7 +146,7 @@
       animation: fireworks 1s ease-out infinite;
     }
 
-    .celebration {
+    .celebration, .encouragement {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -133,15 +155,6 @@
       overflow: hidden;
     }
 
-    .encouragement {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 9999;
-      pointer-events: none;
-      overflow: hidden;
-    }
     .drizzle {
       position: absolute;
       width: 2px;
@@ -150,6 +163,7 @@
       opacity: 0.4;
       animation: drop 1s linear infinite;
     }
+
     .message {
       position: absolute;
       top: 40%;
@@ -166,9 +180,11 @@
     <img src="logo.jpg" alt="School Logo" class="logo" />
     <h1>🏫 Cambridge International School Guwahati</h1>
     <h2>Class 9 CS - Test</h2>
+
     <div class="welcome-banner">
       <p><strong>Welcome:</strong> <span id="studentName"></span> (Roll <span id="studentRoll"></span>)</p>
     </div>
+
     <div id="instruction-screen" class="instructions">
       <h3>📜 Instructions</h3>
       <ul>
@@ -178,295 +194,304 @@
       </ul>
       <button onclick="startTest()">✅ Begin Test</button>
     </div>
+
     <div id="test-screen" class="hidden">
-      <div class="timer">⏰ Time left: <span id="timer">35</span> sec
+      <div class="timer">
+        ⏰ Time left: <span id="timer">35</span> sec
         <div class="timer-bar" id="timer-bar"></div>
       </div>
+
       <div class="question" id="question-box"></div>
       <div class="options" id="options-box"></div>
       <button onclick="nextQuestion()">Next</button>
     </div>
   </div>
-<script>
-  let questions = [];
-  let currentQuestion = 0;
-  let responses = [];
-  let timeLeft = 35;
-  let timer;
 
-  document.addEventListener("DOMContentLoaded", async () => {
-    document.getElementById("studentName").textContent = localStorage.getItem("studentName") || "Student";
-    document.getElementById("studentRoll").textContent = localStorage.getItem("studentRoll") || "-";
-    await loadQuestions();
+  <!-- Part 3 script comes next -->
+  <script>
+    
+  // (Paste Part 3 JavaScript here)
+
+    let questions = [];
+let currentQuestion = 0;
+let responses = [];
+let timeLeft = 35;
+let timer;
+
+document.addEventListener("DOMContentLoaded", async () => {
+  document.getElementById("studentName").textContent = localStorage.getItem("studentName") || "Student";
+  document.getElementById("studentRoll").textContent = localStorage.getItem("studentRoll") || "-";
+  await loadQuestions();
+});
+
+async function loadQuestions() {
+  const res = await fetch("questions2.json");
+  questions = await res.json();
+  shuffleArray(questions);
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function startTest() {
+  document.getElementById("instruction-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  showQuestion(currentQuestion);
+}
+
+function showQuestion(index) {
+  if (index >= questions.length) {
+    submitTest();
+    return;
+  }
+
+  const q = questions[index];
+  document.getElementById("question-box").innerHTML = `<p><strong>Q${index + 1}:</strong> ${q.question}</p>`;
+  const optionsHTML = q.options.map(opt =>
+    `<label><input type="radio" name="option" value="${opt}"> ${opt}</label>`).join("");
+  document.getElementById("options-box").innerHTML = optionsHTML;
+
+  startTimer();
+
+  const nextBtn = document.querySelector('#test-screen button');
+  if (currentQuestion === questions.length - 1) {
+    nextBtn.textContent = "Submit Test";
+    nextBtn.onclick = submitTest;
+  } else {
+    nextBtn.textContent = "Next";
+    nextBtn.onclick = nextQuestion;
+  }
+}
+
+function nextQuestion() {
+  saveAnswer();
+  currentQuestion++;
+  showQuestion(currentQuestion);
+}
+
+function saveAnswer() {
+  const selected = document.querySelector('input[name="option"]:checked');
+  responses.push({
+    question: questions[currentQuestion].question,
+    selected: selected ? selected.value : "Not Answered",
+    correct: questions[currentQuestion].answer
+  });
+  clearInterval(timer);
+}
+
+function startTimer() {
+  timeLeft = 35;
+  document.getElementById("timer").textContent = timeLeft;
+  document.getElementById("timer-bar").style.width = "100%";
+  clearInterval(timer);
+  timer = setInterval(() => {
+    timeLeft--;
+    document.getElementById("timer").textContent = timeLeft;
+    document.getElementById("timer-bar").style.width = `${(timeLeft / 35) * 100}%`;
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      nextQuestion();
+    }
+  }, 1000);
+}
+
+async function submitTest() {
+  saveAnswer();
+  clearInterval(timer);
+
+  let score = 0;
+  responses.forEach(res => {
+    if (res.selected === res.correct) score++;
   });
 
-  async function loadQuestions() {
-    const res = await fetch("questions2.json");
-    questions = await res.json();
-    shuffleArray(questions);
+  let resultHTML = `
+    <h2>✅ Test Submitted</h2>
+    <p>Thank you, ${localStorage.getItem("studentName") || "Student"}!</p>
+    <p>Your answers have been recorded.</p>
+    <h3>📊 Results:</h3>
+    <table class="result-table">
+      <tr><th>#</th><th>Question</th><th>Your Answer</th><th>Correct Answer</th><th>Status</th></tr>
+  `;
+
+  responses.forEach((res, i) => {
+    const isCorrect = res.selected === res.correct;
+    resultHTML += `
+      <tr>
+        <td>${i + 1}</td>
+        <td>${res.question}</td>
+        <td>${res.selected}</td>
+        <td>${res.correct}</td>
+        <td class="${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? "✅ Correct" : "❌ Wrong"}</td>
+      </tr>`;
+  });
+
+  const emoji = score === responses.length ? "🏆" : score >= responses.length * 0.75 ? "🎉" : score >= responses.length * 0.5 ? "👍" : "😕";
+  resultHTML += `</table>
+    <p><strong>Total Score: ${score} / ${responses.length}</strong></p>
+    <p><strong>Performance:</strong> ${emoji}</p>
+    <button onclick="downloadResultAsPDF()">⬇️ Download Result (PDF)</button>
+  `;
+
+  document.getElementById("main-container").innerHTML = resultHTML;
+
+  if (score >= 16) {
+    showCelebration();
+  } else {
+    showEncouragement();
+  }
+}
+
+function showCelebration() {
+  const celebration = document.createElement("div");
+  celebration.className = "celebration";
+
+  const msg = document.createElement("div");
+  msg.className = "message";
+  msg.innerHTML = "🎉 Congratulations! 🎉";
+  celebration.appendChild(msg);
+
+  for (let i = 0; i < 25; i++) {
+    const balloon = document.createElement("div");
+    balloon.className = "balloon";
+    balloon.style.left = Math.random() * 100 + "%";
+    balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+    balloon.style.animationDelay = (Math.random() * 3) + "s";
+    celebration.appendChild(balloon);
   }
 
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
+  for (let i = 0; i < 40; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "%";
+    confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+    confetti.style.animationDelay = Math.random() * 4 + "s";
+    celebration.appendChild(confetti);
   }
 
-  function startTest() {
-    document.getElementById("instruction-screen").classList.add("hidden");
-    document.getElementById("test-screen").classList.remove("hidden");
-    showQuestion(currentQuestion);
+  for (let i = 0; i < 20; i++) {
+    const firework = document.createElement("div");
+    firework.className = "firework";
+    firework.style.left = Math.random() * 100 + "%";
+    firework.style.top = Math.random() * 60 + "%";
+    firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    firework.style.animationDelay = Math.random() * 2 + "s";
+    celebration.appendChild(firework);
   }
 
-  function showQuestion(index) {
-    if (index >= questions.length) {
-      submitTest();
-      return;
-    }
-    const q = questions[index];
-    document.getElementById("question-box").innerHTML = `<p><strong>Q${index + 1}:</strong> ${q.question}</p>`;
-    const optionsHTML = q.options.map(opt => `<label><input type="radio" name="option" value="${opt}"> ${opt}</label>`).join("");
-    document.getElementById("options-box").innerHTML = optionsHTML;
-    startTimer();
+  document.body.appendChild(celebration);
+  setTimeout(() => document.body.removeChild(celebration), 60000);
+}
 
-    const nextBtn = document.querySelector('#test-screen button');
-    if (currentQuestion === questions.length - 1) {
-      nextBtn.textContent = "Submit Test";
-      nextBtn.onclick = submitTest;
-    } else {
-      nextBtn.textContent = "Next";
-      nextBtn.onclick = nextQuestion;
-    }
+function showEncouragement() {
+  const drizzle = document.createElement("div");
+  drizzle.className = "encouragement";
+
+  const message = document.createElement("div");
+  message.className = "message";
+  message.innerHTML = "🌧 Don't worry! Keep practicing, you'll improve! 💪";
+  drizzle.appendChild(message);
+
+  for (let i = 0; i < 80; i++) {
+    const drop = document.createElement("div");
+    drop.className = "drizzle";
+    drop.style.left = Math.random() * 100 + "%";
+    drop.style.animationDelay = Math.random() + "s";
+    drizzle.appendChild(drop);
   }
 
-  function nextQuestion() {
-    saveAnswer();
-    currentQuestion++;
-    showQuestion(currentQuestion);
+  document.body.appendChild(drizzle);
+  setTimeout(() => document.body.removeChild(drizzle), 30000);
+}
+
+async function downloadResultAsPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const name = localStorage.getItem("studentName") || "Student";
+  const roll = localStorage.getItem("studentRoll") || "-";
+  let y = 10;
+
+  doc.setDrawColor(0);
+  doc.setLineWidth(0.5);
+  doc.rect(5, 5, 200, 287);
+
+  const logoImg = await loadImageAsBase64('logo.jpg');
+  if (logoImg) {
+    doc.addImage(logoImg, 'JPEG', 10, y, 30, 30);
   }
 
-  function saveAnswer() {
-    const selected = document.querySelector('input[name="option"]:checked');
-    responses.push({
-      question: questions[currentQuestion].question,
-      selected: selected ? selected.value : "Not Answered",
-      correct: questions[currentQuestion].answer
-    });
-    clearInterval(timer);
-  }
+  doc.setFontSize(16);
+  doc.setFont(undefined, "bold");
+  doc.text("Cambridge International School Guwahati", 105, y + 10, { align: "center" });
 
-  function startTimer() {
-    timeLeft = 35;
-    document.getElementById("timer").textContent = timeLeft;
-    document.getElementById("timer-bar").style.width = "100%";
-    clearInterval(timer);
-    timer = setInterval(() => {
-      timeLeft--;
-      document.getElementById("timer").textContent = timeLeft;
-      document.getElementById("timer-bar").style.width = `${(timeLeft / 35) * 100}%`;
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        nextQuestion();
-      }
-    }, 1000);
-  }
+  doc.setFontSize(12);
+  doc.setFont(undefined, "normal");
+  y += 35;
+  doc.text(`Test Name: Class 9 CS Test`, 10, y); y += 7;
+  doc.text(`Student Name: ${name}`, 10, y); y += 7;
+  doc.text(`Roll Number: ${roll}`, 10, y); y += 10;
 
-  async function submitTest() {
-    saveAnswer(); // Save last answer
-    clearInterval(timer);
-    let score = 0;
-    responses.forEach(res => {
-      if (res.selected === res.correct) score++;
-    });
-
-    let resultHTML = `
-      <h2>✅ Test Submitted</h2>
-      <p>Thank you, ${localStorage.getItem("studentName") || "Student"}!</p>
-      <p>Your answers have been recorded.</p>
-      <h3>📊 Results:</h3>
-      <table class="result-table">
-        <tr><th>#</th><th>Question</th><th>Your Answer</th><th>Correct Answer</th><th>Status</th></tr>
-    `;
-
-    responses.forEach((res, i) => {
-      const isCorrect = res.selected === res.correct;
-      resultHTML += `
-        <tr>
-          <td>${i + 1}</td>
-          <td>${res.question}</td>
-          <td>${res.selected}</td>
-          <td>${res.correct}</td>
-          <td class="${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? "✅ Correct" : "❌ Wrong"}</td>
-        </tr>`;
-    });
-
-    const emoji = score === responses.length ? "🏆" : score >= responses.length * 0.75 ? "🎉" : score >= responses.length * 0.5 ? "👍" : "😕";
-    resultHTML += `</table>
-      <p><strong>Total Score: ${score} / ${responses.length}</strong></p>
-      <p><strong>Performance:</strong> ${emoji}</p>
-      <button onclick="downloadResultAsPDF()">⬇️ Download Result (PDF)</button>
-    `;
-
-    document.getElementById("main-container").innerHTML = resultHTML;
-
-    if (score >= 16) {
-      showCelebration();
-    } else if (score < 16) {
-      showEncouragement();
-    }
-  }
-
-  function showCelebration() {
-    const celebration = document.createElement("div");
-    celebration.className = "celebration";
-
-    const msg = document.createElement("div");
-    msg.className = "message";
-    msg.innerHTML = "🎉 Congratulations! 🎉";
-    celebration.appendChild(msg);
-
-    for (let i = 0; i < 25; i++) {
-      const balloon = document.createElement("div");
-      balloon.className = "balloon";
-      balloon.style.left = Math.random() * 100 + "%";
-      balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
-      balloon.style.animationDelay = (Math.random() * 3) + "s";
-      celebration.appendChild(balloon);
-    }
-
-    for (let i = 0; i < 40; i++) {
-      const confetti = document.createElement("div");
-      confetti.className = "confetti";
-      confetti.style.left = Math.random() * 100 + "%";
-      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
-      confetti.style.animationDelay = Math.random() * 4 + "s";
-      celebration.appendChild(confetti);
-    }
-
-    for (let i = 0; i < 20; i++) {
-      const firework = document.createElement("div");
-      firework.className = "firework";
-      firework.style.left = Math.random() * 100 + "%";
-      firework.style.top = Math.random() * 60 + "%";
-      firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-      firework.style.animationDelay = Math.random() * 2 + "s";
-      celebration.appendChild(firework);
-    }
-
-    document.body.appendChild(celebration);
-    setTimeout(() => {
-      document.body.removeChild(celebration);
-    }, 60000);
-  }
-
-  function showEncouragement() {
-    const drizzle = document.createElement("div");
-    drizzle.className = "encouragement";
-
-    const message = document.createElement("div");
-    message.className = "message";
-    message.innerHTML = "🌧 Don't worry! Keep practicing, you'll improve! 💪";
-    drizzle.appendChild(message);
-
-    for (let i = 0; i < 80; i++) {
-      const drop = document.createElement("div");
-      drop.className = "drizzle";
-      drop.style.left = Math.random() * 100 + "%";
-      drop.style.animationDelay = Math.random() + "s";
-      drizzle.appendChild(drop);
-    }
-
-    document.body.appendChild(drizzle);
-    setTimeout(() => {
-      document.body.removeChild(drizzle);
-    }, 30000);
-  }
-
-  async function downloadResultAsPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const name = localStorage.getItem("studentName") || "Student";
-    const roll = localStorage.getItem("studentRoll") || "-";
-    let y = 10;
-
-    doc.setDrawColor(0);
-    doc.setLineWidth(0.5);
-    doc.rect(5, 5, 200, 287);
-
-    const logoImg = await loadImageAsBase64('logo.jpg');
-    if (logoImg) {
-      doc.addImage(logoImg, 'JPEG', 10, y, 30, 30);
-    }
-
-    doc.setFontSize(16);
+  responses.forEach((res, i) => {
     doc.setFont(undefined, "bold");
-    doc.text("Cambridge International School Guwahati", 105, y + 10, { align: "center" });
-
-    doc.setFontSize(12);
+    doc.text(`Q${i + 1}:`, 10, y);
     doc.setFont(undefined, "normal");
-    y += 35;
-    doc.text(`Test Name: Class 9 CS Test`, 10, y); y += 7;
-    doc.text(`Student Name: ${name}`, 10, y); y += 7;
-    doc.text(`Roll Number: ${roll}`, 10, y); y += 10;
+    doc.text(res.question, 25, y); y += 6;
+    doc.text(`Your Answer: ${res.selected}`, 10, y); y += 6;
+    doc.text(`Correct Answer: ${res.correct}`, 10, y); y += 6;
+    const isCorrect = res.selected === res.correct;
+    doc.setTextColor(isCorrect ? 0 : 255, 0, 0);
+    doc.text(`Status: ${isCorrect ? "Correct" : "Wrong"}`, 10, y);
+    doc.setTextColor(0, 0, 0);
+    y += 10;
+    if (y > 260) { doc.addPage(); doc.rect(5, 5, 200, 287); y = 10; }
+  });
 
-    responses.forEach((res, i) => {
-      doc.setFont(undefined, "bold");
-      doc.text(`Q${i + 1}:`, 10, y);
-      doc.setFont(undefined, "normal");
-      doc.text(res.question, 25, y); y += 6;
-      doc.text(`Your Answer: ${res.selected}`, 10, y); y += 6;
-      doc.text(`Correct Answer: ${res.correct}`, 10, y); y += 6;
-      const isCorrect = res.selected === res.correct;
-      doc.setTextColor(isCorrect ? 0 : 255, 0, 0);
-      doc.text(`Status: ${isCorrect ? "Correct" : "Wrong"}`, 10, y);
-      doc.setTextColor(0, 0, 0);
-      y += 10;
-      if (y > 260) { doc.addPage(); doc.rect(5, 5, 200, 287); y = 10; }
+  const score = responses.filter(r => r.selected === r.correct).length;
+  doc.setFontSize(13);
+  doc.setFont(undefined, "bold");
+  doc.text(`Total Score: ${score} / ${responses.length}`, 10, y); y += 8;
+
+  let performance = "Needs Improvement";
+  if (score === responses.length) performance = "Excellent";
+  else if (score >= responses.length * 0.75) performance = "Very Good";
+  else if (score >= responses.length * 0.5) performance = "Fair";
+  doc.text(`Performance: ${performance}`, 10, y); y += 15;
+
+  const signImg = await loadImageAsBase64('sign.png');
+  if (signImg) {
+    doc.text("Teacher's Signature:", 140, y);
+    y += 2;
+    doc.addImage(signImg, 'JPEG', 140, y, 40, 20);
+    y += 22;
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('en-IN', {
+      day: '2-digit', month: 'short', year: 'numeric'
     });
-
-    const score = responses.filter(r => r.selected === r.correct).length;
-    doc.setFontSize(13);
-    doc.setFont(undefined, "bold");
-    doc.text(`Total Score: ${score} / ${responses.length}`, 10, y); y += 8;
-
-    let performance = "Needs Improvement";
-    if (score === responses.length) performance = "Excellent";
-    else if (score >= responses.length * 0.75) performance = "Very Good";
-    else if (score >= responses.length * 0.5) performance = "Fair";
-    doc.text(`Performance: ${performance}`, 10, y); y += 15;
-
-    const signImg = await loadImageAsBase64('sign.png');
-    if (signImg) {
-      doc.text("Teacher's Signature:", 140, y);
-      y += 2;
-      doc.addImage(signImg, 'JPEG', 140, y, 40, 20);
-      y += 22;
-      const today = new Date();
-      const formattedDate = today.toLocaleDateString('en-IN', {
-        day: '2-digit', month: 'short', year: 'numeric'
-      });
-      doc.text(`Date: ${formattedDate}`, 140, y);
-    }
-
-    doc.save(`${name}_TestResult.pdf`);
+    doc.text(`Date: ${formattedDate}`, 140, y);
   }
 
-  async function loadImageAsBase64(url) {
-    try {
-      const res = await fetch(url);
-      const blob = await res.blob();
-      return await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    } catch (err) {
-      console.warn("Image load failed:", url);
-      return null;
-    }
+  doc.save(`${name}_TestResult.pdf`);
+}
+
+async function loadImageAsBase64(url) {
+  try {
+    const res = await fetch(url);
+    const blob = await res.blob();
+    return await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (err) {
+    console.warn("Image load failed:", url);
+    return null;
   }
-</script>
+}
+
+  </script>
 </body>
 </html>
