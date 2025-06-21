@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Login - Class 9 Test 1</title>
+  <title>Student Login - Class 9 Tests</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -18,7 +18,6 @@
       color: #fff;
     }
 
-    /* Overlay for darkening the background slightly */
     body::before {
       content: '';
       position: absolute;
@@ -26,7 +25,7 @@
       left: 0;
       height: 100%;
       width: 100%;
-      background: rgba(0, 0, 0, 0.5); /* Adjust darkness */
+      background: rgba(0, 0, 0, 0.5);
       z-index: 0;
     }
 
@@ -78,15 +77,31 @@
       color: #ff4d4d;
       font-weight: bold;
     }
+
+    #test-options {
+      margin-top: 20px;
+      display: none;
+    }
+
+    #test-options button {
+      width: 95%;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
   <div class="login-box">
-    <h2>Class 9 CS - Test 1</h2>
+    <h2>Class 9 CS - Login</h2>
     <input type="text" id="username" placeholder="Enter Your Name" />
     <input type="password" id="password" placeholder="Enter Password" />
     <button onclick="login()">Login</button>
     <div id="error" class="error"></div>
+
+    <!-- Test buttons (hidden by default) -->
+    <div id="test-options">
+      <button onclick="startTest('class9_test1.html')">Start Test 1</button>
+      <button onclick="startTest('class9_test2.html')">Start Test 2</button>
+    </div>
   </div>
 
   <script>
@@ -99,18 +114,30 @@
         const response = await fetch("students.json");
         const students = await response.json();
 
-        const student = students.find(s => s.name.toLowerCase().startsWith(username.toLowerCase()) && s.password === password);
+        const student = students.find(s =>
+          s.name.toLowerCase().startsWith(username.toLowerCase()) && s.password === password
+        );
 
         if (student) {
           localStorage.setItem("studentName", student.name);
           localStorage.setItem("studentRoll", student.roll);
-          window.location.href = "class9_test1.html";
+          errorDiv.textContent = "";
+          
+          // Hide login fields and show test options
+          document.getElementById("username").style.display = "none";
+          document.getElementById("password").style.display = "none";
+          document.querySelector("button[onclick='login()']").style.display = "none";
+          document.getElementById("test-options").style.display = "block";
         } else {
           errorDiv.textContent = "Invalid name or password!";
         }
       } catch (error) {
         errorDiv.textContent = "Error loading student data.";
       }
+    }
+
+    function startTest(page) {
+      window.location.href = page;
     }
   </script>
 </body>
