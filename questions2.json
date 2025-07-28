@@ -1,102 +1,182 @@
 [
   {
-    "question": "What is the primary purpose of data compression?",
-    "options": ["Increase file size", "Reduce file size", "Encrypt data", "Change file format"],
-    "answer": "Reduce file size"
+    "question": "What is the primary purpose of encryption?",
+    "options": [
+      "To prevent data from being intercepted",
+      "To make intercepted data unreadable",
+      "To increase transmission speed",
+      "To compress data"
+    ],
+    "answer": "To make intercepted data unreadable"
   },
   {
-    "question": "Which of these is a disadvantage of parallel data transmission?",
-    "options": ["Slower speed", "Skewing of data", "Limited to short distances", "Requires more wires"],
-    "answer": "Skewing of data"
+    "question": "Which key is used for both encryption and decryption in symmetric encryption?",
+    "options": [
+      "Public key",
+      "Private key",
+      "Same secret key",
+      "Hash key"
+    ],
+    "answer": "Same secret key"
   },
   {
-    "question": "What is the binary equivalent of the denary number 25?",
-    "options": ["11001", "10101", "11100", "10011"],
-    "answer": "11001"
+    "question": "What is a major drawback of symmetric encryption?",
+    "options": [
+      "Slower than asymmetric encryption",
+      "Key distribution problem",
+      "Uses longer keys",
+      "Cannot encrypt large files"
+    ],
+    "answer": "Key distribution problem"
   },
   {
-    "question": "Which USB standard introduced USB-C connectors?",
-    "options": ["USB 2.0", "USB 3.0", "USB 3.1", "USB 4.0"],
-    "answer": "USB 3.1"
+    "question": "In asymmetric encryption, which key is used to encrypt a message?",
+    "options": [
+      "Public key",
+      "Private key",
+      "Both keys",
+      "Shared secret key"
+    ],
+    "answer": "Public key"
   },
   {
-    "question": "What is the hexadecimal representation of the binary number 10110110?",
-    "options": ["B6", "D6", "A6", "C6"],
-    "answer": "B6"
+    "question": "What is the purpose of a digital certificate?",
+    "options": [
+      "To compress data",
+      "To verify the identity of a public key owner",
+      "To detect transmission errors",
+      "To generate checksums"
+    ],
+    "answer": "To verify the identity of a public key owner"
   },
   {
-    "question": "Which type of data transmission does not use a clock signal?",
-    "options": ["Synchronous", "Asynchronous", "Parallel", "Serial"],
-    "answer": "Asynchronous"
+    "question": "Which error detection method uses a polynomial division?",
+    "options": [
+      "Parity check",
+      "Checksum",
+      "Cyclic Redundancy Check (CRC)",
+      "Echo check"
+    ],
+    "answer": "Cyclic Redundancy Check (CRC)"
   },
   {
-    "question": "What is the denary value of the hexadecimal number '1F'?",
-    "options": ["25", "30", "31", "35"],
-    "answer": "31"
+    "question": "What is the parity bit for _011001 in even parity?",
+    "options": ["0", "1", "2", "No parity bit needed"],
+    "answer": "1"
   },
   {
-    "question": "Which of these is an example of lossless compression?",
-    "options": ["JPEG", "MPEG", "ZIP", "MP3"],
-    "answer": "ZIP"
+    "question": "Which method detects errors by resending data for comparison?",
+    "options": [
+      "Parity check",
+      "Checksum",
+      "Echo check",
+      "ARQ"
+    ],
+    "answer": "Echo check"
   },
   {
-    "question": "How many bits are in a nibble?",
-    "options": ["2", "4", "8", "16"],
-    "answer": "4"
+    "question": "What does ARQ stand for in error detection?",
+    "options": [
+      "Automatic Repeat Query",
+      "Automatic Repeat Request",
+      "Asymmetric Response Query",
+      "Advanced Redundancy Check"
+    ],
+    "answer": "Automatic Repeat Request"
   },
   {
-    "question": "Which USB version first introduced SuperSpeed data transfer (5 Gbps)?",
-    "options": ["USB 1.0", "USB 2.0", "USB 3.0", "USB 3.1"],
-    "answer": "USB 3.0"
+    "question": "Which error detection method is used in ISBN barcodes?",
+    "options": [
+      "Parity check",
+      "Checksum",
+      "Check digit",
+      "CRC"
+    ],
+    "answer": "Check digit"
   },
   {
-    "question": "What is the binary number 1001 + 0111 in denary?",
-    "options": ["12", "16", "18", "20"],
-    "answer": "16"
+    "question": "What is a limitation of parity checks?",
+    "options": [
+      "Cannot detect single-bit errors",
+      "Fails if an even number of bits flip",
+      "Requires high bandwidth",
+      "Only works for text data"
+    ],
+    "answer": "Fails if an even number of bits flip"
   },
   {
-    "question": "Which method of data transmission is used in USB cables?",
-    "options": ["Parallel", "Serial", "Wireless", "Optical"],
-    "answer": "Serial"
+    "question": "Which protocol uses asymmetric encryption for secure web browsing?",
+    "options": [
+      "AES",
+      "DES",
+      "SSL/TLS",
+      "SHA-256"
+    ],
+    "answer": "SSL/TLS"
   },
   {
-    "question": "What is the main disadvantage of lossy compression?",
-    "options": ["Larger file size", "Slower decompression", "Loss of quality", "Incompatibility"],
-    "answer": "Loss of quality"
+    "question": "How does asymmetric encryption improve security over symmetric encryption?",
+    "options": [
+      "Uses faster algorithms",
+      "Eliminates the need for keys",
+      "Uses separate public/private keys",
+      "Works only offline"
+    ],
+    "answer": "Uses separate public/private keys"
   },
   {
-    "question": "Convert the denary number 45 to hexadecimal.",
-    "options": ["2A", "2D", "3A", "3D"],
-    "answer": "2D"
+    "question": "What is the checksum for the data block [25, 37, 15, 45, 32, 13, 6] if divided by 7?",
+    "options": ["3", "5", "6", "0"],
+    "answer": "5"
   },
   {
-    "question": "Which of these is a characteristic of synchronous transmission?",
-    "options": ["No clock signal", "Variable timing", "Uses start/stop bits", "Fixed timing"],
-    "answer": "Fixed timing"
+    "question": "Which error detection method can pinpoint the exact corrupted bit?",
+    "options": [
+      "Single parity check",
+      "Checksum",
+      "Parity blocks",
+      "Echo check"
+    ],
+    "answer": "Parity blocks"
   },
   {
-    "question": "What is the maximum theoretical speed of USB 3.2 Gen 2x2?",
-    "options": ["5 Gbps", "10 Gbps", "20 Gbps", "40 Gbps"],
-    "answer": "20 Gbps"
+    "question": "What happens if a private key is compromised in asymmetric encryption?",
+    "options": [
+      "Public key becomes invalid",
+      "All encrypted messages can be decrypted",
+      "Data transmission stops",
+      "The system switches to symmetric encryption"
+    ],
+    "answer": "All encrypted messages can be decrypted"
   },
   {
-    "question": "Which binary shift operation multiplies a number by 2?",
-    "options": ["Left shift", "Right shift", "Circular shift", "Logical shift"],
-    "answer": "Left shift"
+    "question": "Which algorithm is an example of symmetric encryption?",
+    "options": ["RSA", "AES", "Diffie-Hellman", "PGP"],
+    "answer": "AES"
   },
   {
-    "question": "What is the denary value of the binary number 110110?",
-    "options": ["52", "54", "56", "58"],
-    "answer": "54"
+    "question": "What is the purpose of a digital signature?",
+    "options": [
+      "To encrypt data",
+      "To verify message authenticity and integrity",
+      "To compress files",
+      "To detect transmission errors"
+    ],
+    "answer": "To verify message authenticity and integrity"
   },
   {
-    "question": "Which compression method is used for PNG images?",
-    "options": ["Lossy", "Lossless", "Both", "Neither"],
-    "answer": "Lossless"
+    "question": "Which error detection method requires double bandwidth?",
+    "options": [
+      "Parity check",
+      "Checksum",
+      "Echo check",
+      "ARQ"
+    ],
+    "answer": "Echo check"
   },
   {
-    "question": "What is the main advantage of hexadecimal in computing?",
-    "options": ["More precise calculations", "Easier to read than binary", "Takes less storage", "Faster processing"],
-    "answer": "Easier to read than binary"
+    "question": "What is the check digit for ISBN-13 if the remainder is 1?",
+    "options": ["1", "9", "0", "10"],
+    "answer": "9"
   }
 ]
