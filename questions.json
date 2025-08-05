@@ -1,107 +1,202 @@
 [
   {
-    "question": "What is the full form of USB?",
-    "options": ["Universal Serial Bus", "Uniform Serial Bus", "Universal System Bus", "Uniform System Bus"],
-    "answer": "Universal Serial Bus"
+    "question": "What is the primary function of the Central Processing Unit (CPU)?",
+    "options": [
+      "To store long-term data",
+      "To execute instructions and process data",
+      "To display graphics on the screen",
+      "To provide internet connectivity"
+    ],
+    "answer": "To execute instructions and process data"
   },
   {
-    "question": "Which of these is a method of data transmission?",
-    "options": ["Serial", "Binary", "Hexadecimal", "Compression"],
-    "answer": "Serial"
+    "question": "Which component of the CPU performs mathematical and logical operations?",
+    "options": [
+      "Control Unit (CU)",
+      "Arithmetic & Logic Unit (ALU)",
+      "Memory Data Register (MDR)",
+      "Program Counter (PC)"
+    ],
+    "answer": "Arithmetic & Logic Unit (ALU)"
   },
   {
-    "question": "What is the denary value of the binary number 1010?",
-    "options": ["8", "10", "12", "14"],
-    "answer": "10"
+    "question": "What is the purpose of registers in the CPU?",
+    "options": [
+      "To provide long-term storage for files",
+      "To act as small, fast storage locations for temporary data",
+      "To connect the CPU to peripheral devices",
+      "To display output on the monitor"
+    ],
+    "answer": "To act as small, fast storage locations for temporary data"
   },
   {
-    "question": "Which data compression method permanently removes some data?",
-    "options": ["Lossy", "Lossless", "Serial", "Parallel"],
-    "answer": "Lossy"
+    "question": "Which bus carries addresses between the CPU and memory?",
+    "options": [
+      "Data Bus",
+      "Address Bus",
+      "Control Bus",
+      "System Bus"
+    ],
+    "answer": "Address Bus"
   },
   {
-    "question": "What is the hexadecimal equivalent of the denary number 15?",
-    "options": ["A", "B", "E", "F"],
-    "answer": "F"
+    "question": "What is the key feature of Von Neumann architecture?",
+    "options": [
+      "Separate storage for programs and data",
+      "Stored-program concept where programs and data share memory",
+      "Parallel execution of all instructions",
+      "No direct memory access"
+    ],
+    "answer": "Stored-program concept where programs and data share memory"
   },
   {
-    "question": "Which USB version offers the fastest data transfer speed?",
-    "options": ["USB 1.0", "USB 2.0", "USB 3.0", "USB 4.0"],
-    "answer": "USB 4.0"
+    "question": "Which register holds the address of the next instruction to be executed?",
+    "options": [
+      "Memory Address Register (MAR)",
+      "Memory Data Register (MDR)",
+      "Program Counter (PC)",
+      "Accumulator (ACC)"
+    ],
+    "answer": "Program Counter (PC)"
   },
   {
-    "question": "What is the binary equivalent of the hexadecimal digit 'C'?",
-    "options": ["1100", "1010", "1101", "1110"],
-    "answer": "1100"
+    "question": "What is the role of the Control Unit (CU) in the CPU?",
+    "options": [
+      "To perform arithmetic calculations",
+      "To manage the Fetch-Decode-Execute cycle",
+      "To store data permanently",
+      "To connect to external networks"
+    ],
+    "answer": "To manage the Fetch-Decode-Execute cycle"
   },
   {
-    "question": "Which type of data transmission sends multiple bits simultaneously?",
-    "options": ["Serial", "Parallel", "Synchronous", "Asynchronous"],
-    "answer": "Parallel"
+    "question": "Why is RAM considered volatile memory?",
+    "options": [
+      "It retains data when powered off",
+      "It loses data when powered off",
+      "It is slower than hard disk drives",
+      "It cannot be written to"
+    ],
+    "answer": "It loses data when powered off"
   },
   {
-    "question": "What is the main advantage of lossless compression?",
-    "options": ["Smaller file size", "No data loss", "Faster transmission", "Better quality"],
-    "answer": "No data loss"
+    "question": "Which register temporarily holds the results of ALU calculations?",
+    "options": [
+      "Current Instruction Register (CIR)",
+      "Accumulator (ACC)",
+      "Memory Address Register (MAR)",
+      "Program Counter (PC)"
+    ],
+    "answer": "Accumulator (ACC)"
   },
   {
-    "question": "How many bits are needed to represent the hexadecimal number FF?",
-    "options": ["4", "8", "16", "32"],
-    "answer": "8"
+    "question": "What is the direction of the Address Bus?",
+    "options": [
+      "Bidirectional",
+      "Unidirectional",
+      "Multidirectional",
+      "Circular"
+    ],
+    "answer": "Unidirectional"
   },
   {
-    "question": "Which USB connector type is commonly used for smartphones?",
-    "options": ["Type-A", "Type-B", "Type-C", "Micro-USB"],
-    "answer": "Type-C"
+    "question": "How does the width of the data bus affect performance?",
+    "options": [
+      "It determines the clock speed of the CPU",
+      "It affects the amount of data that can be transported simultaneously",
+      "It limits the number of registers in the CPU",
+      "It controls the voltage supplied to the CPU"
+    ],
+    "answer": "It affects the amount of data that can be transported simultaneously"
   },
   {
-    "question": "What is the denary value of the hexadecimal number 2A?",
-    "options": ["32", "42", "52", "62"],
-    "answer": "42"
+    "question": "What happens during the Fetch stage of the Fetch-Decode-Execute cycle?",
+    "options": [
+      "The instruction is executed",
+      "The instruction is decoded",
+      "The instruction is retrieved from memory",
+      "The results are stored in the accumulator"
+    ],
+    "answer": "The instruction is retrieved from memory"
   },
   {
-    "question": "Which method of data transmission is better for long distances?",
-    "options": ["Serial", "Parallel", "Both equally", "Neither"],
-    "answer": "Serial"
+    "question": "Which component generates control signals to coordinate other parts of the CPU?",
+    "options": [
+      "Arithmetic & Logic Unit (ALU)",
+      "Control Unit (CU)",
+      "Memory Data Register (MDR)",
+      "Program Counter (PC)"
+    ],
+    "answer": "Control Unit (CU)"
   },
   {
-    "question": "What is the binary representation of the denary number 7?",
-    "options": ["0111", "1000", "0101", "1100"],
-    "answer": "0111"
+    "question": "What type of operations does the ALU perform?",
+    "options": [
+      "Only addition and subtraction",
+      "Only logical operations like AND/OR",
+      "Mathematical and logical operations",
+      "Only data storage operations"
+    ],
+    "answer": "Mathematical and logical operations"
   },
   {
-    "question": "Which of these is an example of lossy compression?",
-    "options": ["ZIP", "MP3", "PNG", "FLAC"],
-    "answer": "MP3"
+    "question": "Why is the system clock important for the CPU?",
+    "options": [
+      "It displays the current time",
+      "It synchronizes operations to prevent crashes",
+      "It stores temporary data",
+      "It powers the CPU"
+    ],
+    "answer": "It synchronizes operations to prevent crashes"
   },
   {
-    "question": "What is the maximum data transfer rate of USB 2.0?",
-    "options": ["12 Mbps", "480 Mbps", "5 Gbps", "10 Gbps"],
-    "answer": "480 Mbps"
+    "question": "Which register stores the current instruction being executed?",
+    "options": [
+      "Memory Address Register (MAR)",
+      "Current Instruction Register (CIR)",
+      "Accumulator (ACC)",
+      "Program Counter (PC)"
+    ],
+    "answer": "Current Instruction Register (CIR)"
   },
   {
-    "question": "How many values can be represented by 4 bits?",
-    "options": ["4", "8", "16", "32"],
-    "answer": "16"
+    "question": "What is the direction of the Data Bus?",
+    "options": [
+      "Unidirectional",
+      "Bidirectional",
+      "Circular",
+      "Static"
+    ],
+    "answer": "Bidirectional"
   },
   {
-    "question": "Which of these is an advantage of hexadecimal over binary?",
-    "options": ["More precise", "Easier for humans to read", "Takes less memory", "Faster to process"],
-    "answer": "Easier for humans to read"
+    "question": "How does Von Neumann architecture handle program instructions?",
+    "options": [
+      "Instructions are executed in parallel",
+      "Instructions are fetched and executed sequentially",
+      "Instructions are stored separately from data",
+      "Instructions are processed randomly"
+    ],
+    "answer": "Instructions are fetched and executed sequentially"
   },
   {
-    "question": "What type of data transmission uses a clock signal?",
-    "options": ["Asynchronous", "Synchronous", "Serial", "Parallel"],
-    "answer": "Synchronous"
+    "question": "What is a limitation of having a narrower data bus?",
+    "options": [
+      "Faster data transfer rates",
+      "Reduced amount of data transported per cycle",
+      "Increased clock speed",
+      "Larger memory capacity"
+    ],
+    "answer": "Reduced amount of data transported per cycle"
   },
   {
-    "question": "Which compression method would be best for text documents?",
-    "options": ["Lossy", "Lossless", "Both equally", "Neither"],
-    "answer": "Lossless"
-  },
-  {
-    "question": "What is the hexadecimal equivalent of the binary number 11101111?",
-    "options": ["EE", "EF", "FE", "FF"],
-    "answer": "EF"
+    "question": "Which component is NOT part of the CPU?",
+    "options": [
+      "Arithmetic & Logic Unit (ALU)",
+      "Control Unit (CU)",
+      "Hard Disk Drive (HDD)",
+      "Registers"
+    ],
+    "answer": "Hard Disk Drive (HDD)"
   }
 ]
