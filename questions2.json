@@ -1,182 +1,222 @@
 [
   {
-    "question": "What is the primary purpose of encryption?",
+    "question": "What is the primary function of the CPU?",
     "options": [
-      "To prevent data from being intercepted",
-      "To make intercepted data unreadable",
-      "To increase transmission speed",
-      "To compress data"
+      "Store long-term data",
+      "Execute instructions and process data",
+      "Display graphics",
+      "Provide internet connectivity"
     ],
-    "answer": "To make intercepted data unreadable"
+    "answer": "Execute instructions and process data",
+    "explanation": "The CPU is the core component responsible for executing program instructions and processing data."
   },
   {
-    "question": "Which key is used for both encryption and decryption in symmetric encryption?",
+    "question": "Which component performs arithmetic and logical operations in the CPU?",
     "options": [
-      "Public key",
-      "Private key",
-      "Same secret key",
-      "Hash key"
+      "Control Unit (CU)",
+      "Arithmetic Logic Unit (ALU)",
+      "Memory Data Register (MDR)",
+      "Program Counter (PC)"
     ],
-    "answer": "Same secret key"
+    "answer": "Arithmetic Logic Unit (ALU)",
+    "explanation": "The ALU handles all mathematical calculations (e.g., addition) and logic operations (e.g., AND/OR)."
   },
   {
-    "question": "What is a major drawback of symmetric encryption?",
+    "question": "What is the purpose of the Program Counter (PC) register?",
     "options": [
-      "Slower than asymmetric encryption",
+      "Store calculation results",
+      "Hold the address of the next instruction",
+      "Decode instructions",
+      "Manage the system clock"
+    ],
+    "answer": "Hold the address of the next instruction",
+    "explanation": "The PC keeps track of where the CPU is in the program by storing the memory address of the next instruction."
+  },
+  {
+    "question": "Which bus carries memory addresses from the CPU to RAM?",
+    "options": [
+      "Data Bus",
+      "Address Bus",
+      "Control Bus",
+      "System Bus"
+    ],
+    "answer": "Address Bus",
+    "explanation": "The unidirectional Address Bus transmits memory addresses for read/write operations."
+  },
+  {
+    "question": "What happens during the FETCH stage of the cycle?",
+    "options": [
+      "Instructions are executed",
+      "The PC increments by 1",
+      "Data is written to RAM",
+      "The ALU performs calculations"
+    ],
+    "answer": "The PC increments by 1",
+    "explanation": "After fetching an instruction, the PC increments to point to the next instruction in memory."
+  },
+  {
+    "question": "Which register holds the instruction currently being executed?",
+    "options": [
+      "Memory Address Register (MAR)",
+      "Current Instruction Register (CIR)",
+      "Accumulator (ACC)",
+      "Memory Data Register (MDR)"
+    ],
+    "answer": "Current Instruction Register (CIR)",
+    "explanation": "The CIR temporarily stores the instruction fetched from memory for decoding and execution."
+  },
+  {
+    "question": "What is the key feature of Von Neumann architecture?",
+    "options": [
+      "Separate memory for data and programs",
+      "Stored-program concept with shared memory",
+      "Parallel processing",
+      "Analog computation"
+    ],
+    "answer": "Stored-program concept with shared memory",
+    "explanation": "Von Neumann architecture stores both programs and data in the same memory space."
+  },
+  {
+    "question": "Which encryption method uses the same key for encryption and decryption?",
+    "options": [
+      "Asymmetric encryption",
+      "Symmetric encryption",
+      "Public-key encryption",
+      "Hash encryption"
+    ],
+    "answer": "Symmetric encryption",
+    "explanation": "Symmetric encryption relies on a single shared key for both encryption and decryption."
+  },
+  {
+    "question": "What is the main weakness of symmetric encryption?",
+    "options": [
+      "Slow processing speed",
       "Key distribution problem",
-      "Uses longer keys",
-      "Cannot encrypt large files"
+      "Large key sizes",
+      "Inability to encrypt text"
     ],
-    "answer": "Key distribution problem"
+    "answer": "Key distribution problem",
+    "explanation": "Securely sharing the same key between parties is challenging and risky."
   },
   {
-    "question": "In asymmetric encryption, which key is used to encrypt a message?",
+    "question": "In asymmetric encryption, which key decrypts messages?",
     "options": [
       "Public key",
       "Private key",
       "Both keys",
-      "Shared secret key"
+      "Session key"
     ],
-    "answer": "Public key"
+    "answer": "Private key",
+    "explanation": "Only the recipient's private key can decrypt messages encrypted with their public key."
   },
   {
-    "question": "What is the purpose of a digital certificate?",
+    "question": "What happens to RAM contents when power is lost?",
     "options": [
-      "To compress data",
-      "To verify the identity of a public key owner",
-      "To detect transmission errors",
-      "To generate checksums"
+      "Data is saved permanently",
+      "Data is lost (volatile)",
+      "Data transfers to the hard drive",
+      "Data becomes encrypted"
     ],
-    "answer": "To verify the identity of a public key owner"
+    "answer": "Data is lost (volatile)",
+    "explanation": "RAM is volatile memory that requires constant power to retain data."
   },
   {
-    "question": "Which error detection method uses a polynomial division?",
+    "question": "Which component generates control signals in the CPU?",
     "options": [
-      "Parity check",
-      "Checksum",
-      "Cyclic Redundancy Check (CRC)",
-      "Echo check"
+      "ALU",
+      "Control Unit (CU)",
+      "Accumulator",
+      "Data Bus"
     ],
-    "answer": "Cyclic Redundancy Check (CRC)"
+    "answer": "Control Unit (CU)",
+    "explanation": "The CU coordinates all CPU operations by sending control signals via the control bus."
   },
   {
-    "question": "What is the parity bit for _011001 in even parity?",
-    "options": ["0", "1", "2", "No parity bit needed"],
-    "answer": "1"
-  },
-  {
-    "question": "Which method detects errors by resending data for comparison?",
+    "question": "How does the Caesar Cipher work?",
     "options": [
-      "Parity check",
-      "Checksum",
-      "Echo check",
-      "ARQ"
+      "Replaces letters with symbols",
+      "Shifts letters by a fixed number",
+      "Reverses the alphabet",
+      "Uses public/private keys"
     ],
-    "answer": "Echo check"
+    "answer": "Shifts letters by a fixed number",
+    "explanation": "Each letter in plaintext is shifted by a set number (key) to produce ciphertext."
   },
   {
-    "question": "What does ARQ stand for in error detection?",
+    "question": "What is the purpose of the Memory Data Register (MDR)?",
     "options": [
-      "Automatic Repeat Query",
-      "Automatic Repeat Request",
-      "Asymmetric Response Query",
-      "Advanced Redundancy Check"
+      "Store instruction addresses",
+      "Hold data read from/written to memory",
+      "Perform calculations",
+      "Manage the system clock"
     ],
-    "answer": "Automatic Repeat Request"
+    "answer": "Hold data read from/written to memory",
+    "explanation": "The MDR temporarily stores data during transfers between CPU and RAM."
   },
   {
-    "question": "Which error detection method is used in ISBN barcodes?",
+    "question": "Why is asymmetric encryption more secure for online transactions?",
     "options": [
-      "Parity check",
-      "Checksum",
-      "Check digit",
-      "CRC"
+      "Faster processing",
+      "No need to share private keys",
+      "Uses simpler algorithms",
+      "Works without internet"
     ],
-    "answer": "Check digit"
+    "answer": "No need to share private keys",
+    "explanation": "Only public keys are shared; private keys remain secret, eliminating key distribution risks."
   },
   {
-    "question": "What is a limitation of parity checks?",
+    "question": "Which operation does the ALU NOT perform?",
     "options": [
-      "Cannot detect single-bit errors",
-      "Fails if an even number of bits flip",
-      "Requires high bandwidth",
-      "Only works for text data"
+      "Addition",
+      "Logical AND",
+      "Data storage",
+      "Bit shifting"
     ],
-    "answer": "Fails if an even number of bits flip"
+    "answer": "Data storage",
+    "explanation": "The ALU performs calculations/logic operations but doesn't store data long-term (registers handle storage)."
   },
   {
-    "question": "Which protocol uses asymmetric encryption for secure web browsing?",
+    "question": "What is the final step in the fetch-decode-execute cycle?",
     "options": [
-      "AES",
-      "DES",
-      "SSL/TLS",
-      "SHA-256"
+      "Fetch next instruction",
+      "Store results in RAM",
+      "Write to accumulator",
+      "Increment PC"
     ],
-    "answer": "SSL/TLS"
+    "answer": "Write to accumulator",
+    "explanation": "ALU results are stored in the accumulator before the cycle repeats."
   },
   {
-    "question": "How does asymmetric encryption improve security over symmetric encryption?",
+    "question": "Which encryption method would SSL/TLS use for secure web browsing?",
     "options": [
-      "Uses faster algorithms",
-      "Eliminates the need for keys",
-      "Uses separate public/private keys",
-      "Works only offline"
+      "Symmetric only",
+      "Asymmetric only",
+      "Both symmetric and asymmetric",
+      "No encryption"
     ],
-    "answer": "Uses separate public/private keys"
+    "answer": "Both symmetric and asymmetric",
+    "explanation": "SSL/TLS uses asymmetric encryption to exchange symmetric keys, then switches to faster symmetric encryption for data transfer."
   },
   {
-    "question": "What is the checksum for the data block [25, 37, 15, 45, 32, 13, 6] if divided by 7?",
-    "options": ["3", "5", "6", "0"],
-    "answer": "5"
-  },
-  {
-    "question": "Which error detection method can pinpoint the exact corrupted bit?",
+    "question": "What is the role of the system clock in the CPU?",
     "options": [
-      "Single parity check",
-      "Checksum",
-      "Parity blocks",
-      "Echo check"
+      "Display time",
+      "Synchronize operations",
+      "Store temporary data",
+      "Power peripherals"
     ],
-    "answer": "Parity blocks"
+    "answer": "Synchronize operations",
+    "explanation": "The clock ensures all CPU components work in unison to prevent errors."
   },
   {
-    "question": "What happens if a private key is compromised in asymmetric encryption?",
+    "question": "Which register holds ALU calculation results temporarily?",
     "options": [
-      "Public key becomes invalid",
-      "All encrypted messages can be decrypted",
-      "Data transmission stops",
-      "The system switches to symmetric encryption"
+      "Program Counter",
+      "Memory Address Register",
+      "Accumulator",
+      "Current Instruction Register"
     ],
-    "answer": "All encrypted messages can be decrypted"
-  },
-  {
-    "question": "Which algorithm is an example of symmetric encryption?",
-    "options": ["RSA", "AES", "Diffie-Hellman", "PGP"],
-    "answer": "AES"
-  },
-  {
-    "question": "What is the purpose of a digital signature?",
-    "options": [
-      "To encrypt data",
-      "To verify message authenticity and integrity",
-      "To compress files",
-      "To detect transmission errors"
-    ],
-    "answer": "To verify message authenticity and integrity"
-  },
-  {
-    "question": "Which error detection method requires double bandwidth?",
-    "options": [
-      "Parity check",
-      "Checksum",
-      "Echo check",
-      "ARQ"
-    ],
-    "answer": "Echo check"
-  },
-  {
-    "question": "What is the check digit for ISBN-13 if the remainder is 1?",
-    "options": ["1", "9", "0", "10"],
-    "answer": "9"
+    "answer": "Accumulator",
+    "explanation": "The ACC stores intermediate results during arithmetic/logic operations."
   }
 ]
